@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 interface CreationItem {
   id: number;
@@ -68,6 +70,9 @@ export default function CreationsGallery() {
   const [activeDot, setActiveDot] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
   // Auto-play slider setiap 4 detik
   useEffect(() => {
     if (isPaused) return;
@@ -76,6 +81,35 @@ export default function CreationsGallery() {
     }, 4000);
     return () => clearInterval(timer);
   }, [isPaused]);
+
+  // ScrollTrigger Initial Entrance
+  useGSAP(
+    () => {
+      gsap.from(".gallery-card-container", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 35,
+        duration: 0.7,
+        ease: "power2.out",
+      });
+    },
+    { scope: sectionRef }
+  );
+
+  // Smooth fade-in when activeDot changes
+  useEffect(() => {
+    if (gridRef.current) {
+      const items = gridRef.current.querySelectorAll(".gallery-item");
+      gsap.fromTo(
+        items,
+        { opacity: 0.4, scale: 0.96 },
+        { opacity: 1, scale: 1, duration: 0.45, stagger: 0.06, ease: "power2.out" }
+      );
+    }
+  }, [activeDot]);
 
   // Dapatkan 4 foto yang tampil berdasarkan slide aktif (0 - 4)
   const visibleCreations = [0, 1, 2, 3].map((offset) => {
@@ -86,14 +120,15 @@ export default function CreationsGallery() {
   return (
     <section
       id="creations"
+      ref={sectionRef}
       className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Container Kuning Amber Sesuai Gambar 3 */}
-      <div className="relative rounded-[2.25rem] sm:rounded-[3rem] bg-[#F7A633] pt-10 pb-8 px-6 sm:px-10 md:px-14 shadow-lg overflow-hidden">
+      {/* Container Kuning Amber */}
+      <div className="gallery-card-container relative rounded-[2.25rem] sm:rounded-[3rem] bg-[#F7A633] pt-10 pb-8 px-6 sm:px-10 md:px-14 shadow-lg overflow-hidden">
         
-        {/* Top Header Row: Title Kiri & "See More Creations ↗" Kanan Persis Gambar 3 */}
+        {/* Top Header Row */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <h2 className="font-heading font-black text-2xl sm:text-4xl md:text-5xl uppercase tracking-normal text-[#291E16]">
             {t.creations.title}
@@ -115,11 +150,11 @@ export default function CreationsGallery() {
         </div>
 
         {/* 4 Foto Grid Bergeser Sesuai Slide/Dot Aktif */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+        <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
           {visibleCreations.map((item, idx) => (
             <div
               key={`${item.id}-${activeDot}-${idx}`}
-              className="relative w-full h-44 sm:h-52 md:h-60 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm border border-amber-200/60 bg-white group cursor-pointer animate-in fade-in zoom-in-95 duration-300"
+              className="gallery-item relative w-full h-44 sm:h-52 md:h-60 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm border border-amber-200/60 bg-white group cursor-pointer"
             >
               <Image
                 src={item.image}
@@ -139,7 +174,7 @@ export default function CreationsGallery() {
           ))}
         </div>
 
-        {/* 5 Pagination Dots Berfungsi Aktif (Sesuai Gambar 2 & 3) */}
+        {/* 5 Pagination Dots */}
         <div className="flex items-center justify-center gap-2.5 mt-8">
           {[0, 1, 2, 3, 4].map((dot) => (
             <button

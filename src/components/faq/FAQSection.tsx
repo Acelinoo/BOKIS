@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 interface FAQItem {
   questionId: string;
@@ -40,15 +42,15 @@ const BEHANCE_FAQS: FAQItem[] = [
     questionId: "APAKAH PRODUK DIPANGGANG SEGAR SETIAP HARI?",
     questionEn: "ARE YOUR PRODUCTS BAKED FRESH DAILY?",
     answerId:
-      "Benar 100%. Dapur kami di Soreang mulai memanggang setiap pukul 05.00 WIB setiap pagi menggunakan 100% susu murni segar dan keju berkualitas, sehingga produk tiba dalam kondisi paling lembut dan harum.",
+      "Benar 100%. Dapur kami di Soreang mulai memanggang setiap pagi menggunakan bahan-bahan segar berkualitas, sehingga produk tiba dalam kondisi paling lembut dan harum.",
     answerEn:
-      "100% yes! Our bakery in Soreang bakes every morning starting at 05:00 AM so your treats arrive at your doorstep in their freshest, softest, and most fragrant state.",
+      "100% yes! Our bakery in Soreang bakes every morning starting at 05:00 AM so your treats arrive at your doorstep in their freshest and softest state.",
   },
   {
     questionId: "BAGAIMANA DAYA TAHAN & CARA PENYIMPANAN BOLU BOKIS?",
-    questionEn: "CAN I CUSTOMIZE THE FLAVOR AND SIZE OF MY CAKE?",
+    questionEn: "WHAT IS THE SHELF LIFE AND STORAGE INSTRUCTION?",
     answerId:
-      "Bolu chiffon keju kami bertahan 3–4 hari pada suhu ruang sejuk dan hingga 7–10 hari di dalam lemari pendingin (chiller). Kami tidak menggunakan bahan pengawet sintetis.",
+      "Bolu keju kami bertahan 3–4 hari pada suhu ruang sejuk dan hingga 7–10 hari di dalam lemari pendingin (chiller). Seluruh produk dibuat tanpa bahan pengawet sintetis.",
     answerEn:
       "Our artisan chiffon cakes stay fresh for 3–4 days at ambient room temperature, and 7–10 days in the refrigerator. We strictly use no artificial preservatives.",
   },
@@ -56,22 +58,55 @@ const BEHANCE_FAQS: FAQItem[] = [
 
 export default function FAQSection() {
   const { language, t } = useLanguage();
-  const [openIndex, setOpenIndex] = useState<number | null>(1); // Default terbuka index 1 seperti di Behance
+  const [openIndex, setOpenIndex] = useState<number | null>(1);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from(".faq-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 25,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
+      gsap.from(".faq-item", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 20,
+        stagger: 0.08,
+        duration: 0.55,
+        ease: "power2.out",
+      });
+    },
+    { scope: sectionRef }
+  );
 
   const toggle = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section id="faq" className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-      {/* Title: FREQUENTLY ASKED QUESTION / PERTANYAAN UMUM */}
-      <div className="text-center mb-10">
+    <section
+      id="faq"
+      ref={sectionRef}
+      className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
+    >
+      {/* Title: PERTANYAAN UMUM */}
+      <div className="faq-title text-center mb-10">
         <h2 className="font-heading font-black text-3xl sm:text-5xl uppercase tracking-normal text-[#291E16]">
           {t.faq.title}
         </h2>
       </div>
 
-      {/* 5 Pill Accordions Persis Gambar 3 */}
+      {/* 5 Pill Accordions */}
       <div className="space-y-3 sm:space-y-3.5">
         {BEHANCE_FAQS.map((faq, idx) => {
           const isOpen = openIndex === idx;
@@ -81,7 +116,7 @@ export default function FAQSection() {
           return (
             <div
               key={idx}
-              className="rounded-2xl sm:rounded-3xl bg-[#FFFDF7] border border-[#EADBCC] shadow-xs overflow-hidden transition-all duration-200"
+              className="faq-item rounded-2xl sm:rounded-3xl bg-[#FFFDF7] border border-[#EADBCC] shadow-xs overflow-hidden transition-all duration-200"
             >
               <button
                 onClick={() => toggle(idx)}
@@ -95,7 +130,7 @@ export default function FAQSection() {
                   </span>
                 </div>
 
-                {/* Tombol Bulat Oranye + / - Persis Gambar 3 */}
+                {/* Tombol Bulat Oranye + / - */}
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#F58A42] text-white flex items-center justify-center shrink-0 shadow-2xs">
                   {isOpen ? (
                     <Minus className="w-3.5 h-3.5" />
@@ -106,7 +141,7 @@ export default function FAQSection() {
               </button>
 
               {isOpen && (
-                <div className="px-5 sm:px-7 pb-5 pt-1 pl-10 sm:pl-12 text-xs sm:text-sm text-[#786C65] leading-relaxed font-medium">
+                <div className="px-5 sm:px-7 pb-5 pt-1 pl-10 sm:pl-12 text-xs sm:text-sm text-[#786C65] leading-relaxed font-medium animate-in fade-in duration-200">
                   {answer}
                 </div>
               )}

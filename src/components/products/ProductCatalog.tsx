@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Check, Eye } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { PRODUCTS, ProductItem } from "@/lib/products";
 import ProductOverviewModal, { ModalProduct } from "./ProductOverviewModal";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 interface ProductCatalogProps {
   selectedCategory?: string;
@@ -18,10 +20,13 @@ export default function ProductCatalog({
   onCategoryChange,
 }: ProductCatalogProps) {
   const { addToCart } = useCart();
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<string>(selectedCategory || "all");
   const [addedId, setAddedId] = useState<string | null>(null);
   const [overviewProduct, setOverviewProduct] = useState<ModalProduct | null>(null);
+
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selectedCategory) {
@@ -51,6 +56,37 @@ export default function ProductCatalog({
     return item.categorySlug === activeTab;
   });
 
+  // ScrollTrigger Initial Entrance
+  useGSAP(
+    () => {
+      gsap.from(".catalog-header", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 25,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    },
+    { scope: sectionRef }
+  );
+
+  // Stagger animation when changing category tab or initial render
+  useEffect(() => {
+    if (gridRef.current) {
+      const cards = gridRef.current.querySelectorAll(".product-card");
+      if (cards.length > 0) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 20, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.05, ease: "power2.out" }
+        );
+      }
+    }
+  }, [activeTab]);
+
   const handleOpenOverview = (item: ProductItem) => {
     setOverviewProduct({
       id: item.id,
@@ -74,14 +110,18 @@ export default function ProductCatalog({
   };
 
   return (
-    <section id="katalog" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Title: DAFTAR MENU */}
-      <div className="text-center mb-8">
+    <section
+      id="katalog"
+      ref={sectionRef}
+      className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+    >
+      {/* Title & Filter Tabs */}
+      <div className="catalog-header text-center mb-8">
         <h2 className="font-heading font-black text-3xl sm:text-5xl uppercase tracking-normal text-[#291E16]">
           {t.treats.title}
         </h2>
 
-        {/* Filter Tabs: Semua Menu, Pilihan Resto, Bolu Kiju Soreang, Aneka Chiramisu */}
+        {/* Filter Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -102,8 +142,11 @@ export default function ProductCatalog({
         </div>
       </div>
 
-      {/* Grid Menu: 2 CARD DI MODE MOBILE (grid-cols-2) & 4 CARD DI DESKTOP */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mt-8">
+      {/* Grid Menu: 2 CARD DI MODE MOBILE & 4 CARD DI DESKTOP */}
+      <div
+        ref={gridRef}
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mt-8"
+      >
         {filteredItems.map((item) => {
           const isAdded = addedId === item.id;
 
@@ -111,7 +154,7 @@ export default function ProductCatalog({
             <div
               key={item.id}
               onClick={() => handleOpenOverview(item)}
-              className="group rounded-2xl sm:rounded-3xl bg-[#FAF5EB] border border-[#EADBCC] p-2.5 sm:p-3.5 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer relative"
+              className="product-card group rounded-2xl sm:rounded-3xl bg-[#FAF5EB] border border-[#EADBCC] p-2.5 sm:p-3.5 flex flex-col justify-between shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer relative"
               title={t.treats.quickView}
             >
               {/* Foto Produk dengan Tag Harga & Kategori */}
@@ -179,7 +222,7 @@ export default function ProductCatalog({
         })}
       </div>
 
-      {/* Show More ↗ Button di Bawah Grid */}
+      {/* Show More ↗ Button */}
       <div className="text-center mt-10">
         <button
           onClick={() => {

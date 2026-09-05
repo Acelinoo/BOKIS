@@ -1,14 +1,55 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { Star, ArrowUpRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 export default function SpecialOffer() {
   const { addToCart } = useCart();
   const { language, t } = useLanguage();
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from(".promo-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 25,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
+      gsap.from(".promo-card", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 35,
+        scale: 0.94,
+        stagger: 0.15,
+        duration: 0.7,
+        ease: "back.out(1.4)",
+      });
+
+      // Pulse badge
+      gsap.to(".discount-badge", {
+        scale: 1.08,
+        duration: 1.3,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    },
+    { scope: sectionRef }
+  );
 
   const handleClaim = (
     id: string,
@@ -36,12 +77,16 @@ export default function SpecialOffer() {
   };
 
   return (
-    <section id="promo" className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section
+      id="promo"
+      ref={sectionRef}
+      className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+    >
       {/* Container Kuning Amber Besar */}
       <div className="relative rounded-[2rem] sm:rounded-[3rem] bg-[#F7A633] pt-10 sm:pt-12 pb-8 sm:pb-10 px-4 sm:px-10 md:px-14 shadow-lg overflow-hidden">
         
         {/* Title: PENAWARAN SPESIAL */}
-        <div className="text-center mb-8 sm:mb-10">
+        <div className="promo-title text-center mb-8 sm:mb-10">
           <h2 className="font-heading font-black text-2xl sm:text-4xl md:text-5xl uppercase tracking-normal text-[#291E16]">
             {t.specialOffer.title}
           </h2>
@@ -51,7 +96,7 @@ export default function SpecialOffer() {
         <div className="grid grid-cols-2 gap-3 sm:gap-6 relative z-10">
           
           {/* Card 1: BOKIS KIJU SPESIAL */}
-          <div className="relative rounded-2xl sm:rounded-3xl bg-[#FFFDF7] p-3 sm:p-6 md:p-8 flex flex-col justify-between shadow-sm border border-amber-100 group">
+          <div className="promo-card relative rounded-2xl sm:rounded-3xl bg-[#FFFDF7] p-3 sm:p-6 md:p-8 flex flex-col justify-between shadow-sm border border-amber-100 group hover:shadow-md transition-shadow">
             <div className="space-y-1.5 sm:space-y-2 text-left">
               <h3 className="font-heading font-black text-xs sm:text-xl md:text-2xl uppercase tracking-tight text-[#291E16] line-clamp-1 sm:line-clamp-none">
                 {language === "id" ? "BOKIS KIJU SPESIAL" : "SPECIAL CHEESE CHIFFON"}
@@ -72,7 +117,7 @@ export default function SpecialOffer() {
 
             {/* Foto dengan Badge 25% OFF Melayang */}
             <div className="relative w-full h-24 sm:h-36 md:h-44 my-2 sm:my-3 shrink-0 flex items-center justify-center">
-              <div className="absolute top-0 right-0 z-20 bg-[#F58A42] text-white font-heading font-black text-[9px] sm:text-[11px] w-9 h-9 sm:w-12 sm:h-12 rounded-full flex flex-col items-center justify-center shadow-md border border-dashed border-white">
+              <div className="discount-badge absolute top-0 right-0 z-20 bg-[#F58A42] text-white font-heading font-black text-[9px] sm:text-[11px] w-9 h-9 sm:w-12 sm:h-12 rounded-full flex flex-col items-center justify-center shadow-md border border-dashed border-white">
                 <span className="leading-none">25%</span>
                 <span className="text-[7px] sm:text-[8px] leading-none">{t.specialOffer.off}</span>
               </div>
@@ -108,7 +153,7 @@ export default function SpecialOffer() {
           </div>
 
           {/* Card 2: CHIRAMISU TRIPLE CHOCO */}
-          <div className="relative rounded-2xl sm:rounded-3xl bg-[#FFFDF7] p-3 sm:p-6 md:p-8 flex flex-col justify-between shadow-sm border border-amber-100 group">
+          <div className="promo-card relative rounded-2xl sm:rounded-3xl bg-[#FFFDF7] p-3 sm:p-6 md:p-8 flex flex-col justify-between shadow-sm border border-amber-100 group hover:shadow-md transition-shadow">
             <div className="space-y-1.5 sm:space-y-2 text-left">
               <h3 className="font-heading font-black text-xs sm:text-xl md:text-2xl uppercase tracking-tight text-[#291E16] line-clamp-1 sm:line-clamp-none">
                 {language === "id" ? "CHIRAMISU TRIPLE CHOCO" : "CHIRAMISU TRIPLE CHOCO"}
@@ -129,7 +174,7 @@ export default function SpecialOffer() {
 
             {/* Foto dengan Badge 25% OFF Melayang */}
             <div className="relative w-full h-24 sm:h-36 md:h-44 my-2 sm:my-3 shrink-0 flex items-center justify-center">
-              <div className="absolute top-0 right-0 z-20 bg-[#F58A42] text-white font-heading font-black text-[9px] sm:text-[11px] w-9 h-9 sm:w-12 sm:h-12 rounded-full flex flex-col items-center justify-center shadow-md border border-dashed border-white">
+              <div className="discount-badge absolute top-0 right-0 z-20 bg-[#F58A42] text-white font-heading font-black text-[9px] sm:text-[11px] w-9 h-9 sm:w-12 sm:h-12 rounded-full flex flex-col items-center justify-center shadow-md border border-dashed border-white">
                 <span className="leading-none">25%</span>
                 <span className="text-[7px] sm:text-[8px] leading-none">{t.specialOffer.off}</span>
               </div>

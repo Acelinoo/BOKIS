@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 interface CategoryCardProps {
   keyId: "topPicks" | "boluKiju" | "chiramisu" | "allMenu";
@@ -40,11 +42,45 @@ export default function CategorySection({
   onSelectCategory?: (slug: string) => void;
 }) {
   const { t } = useLanguage();
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from(".category-title", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 25,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
+      gsap.from(".category-card", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 35,
+        scale: 0.94,
+        stagger: 0.1,
+        duration: 0.65,
+        ease: "back.out(1.5)",
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section id="categories" className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Title: OUR CATEGORIES / KATEGORI MENU */}
-      <div className="text-center mb-8">
+    <section
+      id="categories"
+      ref={sectionRef}
+      className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+    >
+      {/* Title: KATEGORI MENU */}
+      <div className="category-title text-center mb-8">
         <h2 className="font-heading font-black text-3xl sm:text-5xl uppercase tracking-normal text-[#291E16]">
           {t.categories.title}
         </h2>
@@ -67,7 +103,7 @@ export default function CategorySection({
                   target.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group cursor-pointer rounded-2xl sm:rounded-3xl bg-[#F58A42] p-3.5 sm:p-5 flex flex-col justify-between shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden"
+              className="category-card group cursor-pointer rounded-2xl sm:rounded-3xl bg-[#F58A42] p-3.5 sm:p-5 flex flex-col justify-between shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden"
             >
               {/* Foto Makanan Mengambang di Atas Kartu */}
               <div className="relative w-full h-28 sm:h-40 my-1 sm:my-2 flex items-center justify-center">

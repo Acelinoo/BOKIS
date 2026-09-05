@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { Star, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 interface TestimonialItem {
   id: number;
@@ -64,11 +66,45 @@ const TESTIMONIAL_ITEMS: TestimonialItem[] = [
 
 export default function TestimonialSection() {
   const { language, t } = useLanguage();
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.from(".testimonial-header", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 25,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
+      gsap.from(".testimonial-card", {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 35,
+        scale: 0.95,
+        stagger: 0.1,
+        duration: 0.65,
+        ease: "power2.out",
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section id="testimoni" className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section
+      id="testimoni"
+      ref={sectionRef}
+      className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+    >
       {/* Top Header Row: Title Kiri & Contact Us Kanan */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-10">
+      <div className="testimonial-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-10">
         <h2 className="font-heading font-black text-2xl sm:text-4xl md:text-5xl uppercase tracking-normal text-[#291E16]">
           {t.testimonials.title}
         </h2>
@@ -85,12 +121,12 @@ export default function TestimonialSection() {
         </Link>
       </div>
 
-      {/* Kartu Testimoni: 2 CARD DI MODE MOBILE (grid-cols-2) & 4 CARD DI DESKTOP */}
+      {/* Kartu Testimoni: 2 CARD DI MODE MOBILE & 4 CARD DI DESKTOP */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {TESTIMONIAL_ITEMS.map((item) => (
           <div
             key={item.id}
-            className="rounded-2xl sm:rounded-3xl bg-[#F58A42] p-3 sm:p-5 shadow-md flex flex-col justify-between"
+            className="testimonial-card rounded-2xl sm:rounded-3xl bg-[#F58A42] p-3 sm:p-5 shadow-md flex flex-col justify-between hover:shadow-lg transition-shadow"
           >
             {/* Area Putih / Cream Bagian Atas Berisi Rating & Quote */}
             <div className="bg-[#FFFDF7] rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-xs border border-amber-100 flex-1 flex flex-col justify-between">
