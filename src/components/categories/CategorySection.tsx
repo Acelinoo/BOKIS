@@ -6,31 +6,31 @@ import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface CategoryCardProps {
-  keyId: "cakes" | "sweets" | "cookies" | "chocolates";
+  keyId: "topPicks" | "boluKiju" | "chiramisu" | "allMenu";
   image: string;
   filterSlug: string;
 }
 
 const CATEGORY_LIST: CategoryCardProps[] = [
   {
-    keyId: "cakes",
+    keyId: "topPicks",
     image: "/images/products/bolu-keju-original.jpg",
-    filterSlug: "signature",
+    filterSlug: "top-picks",
   },
   {
-    keyId: "sweets",
+    keyId: "boluKiju",
     image: "/images/products/bolu-keju-turnaround.jpg",
-    filterSlug: "double-cheese",
+    filterSlug: "bolu-kiju",
   },
   {
-    keyId: "cookies",
+    keyId: "chiramisu",
     image: "/images/hero/bolu-hero-splash.jpg",
-    filterSlug: "pandan-cokelat",
+    filterSlug: "chiramisu",
   },
   {
-    keyId: "chocolates",
+    keyId: "allMenu",
     image: "/images/products/bolu-keju-original.jpg",
-    filterSlug: "hampers",
+    filterSlug: "all",
   },
 ];
 
@@ -43,15 +43,15 @@ export default function CategorySection({
 
   return (
     <section id="categories" className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Title: OUR CATEGORIES / KATEGORI MENU (Chunky Typography Persis Gambar 1) */}
-      <div className="text-center mb-10">
+      {/* Title: OUR CATEGORIES / KATEGORI MENU */}
+      <div className="text-center mb-8">
         <h2 className="font-heading font-black text-3xl sm:text-5xl uppercase tracking-normal text-[#291E16]">
           {t.categories.title}
         </h2>
       </div>
 
-      {/* Grid 4 Kartu Oranye Coral Persis Gambar 1 */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+      {/* Grid 4 Kartu Oranye Coral */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
         {CATEGORY_LIST.map((cat, idx) => {
           const categoryTitle = t.categories[cat.keyId];
 
@@ -67,11 +67,11 @@ export default function CategorySection({
                   target.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group cursor-pointer rounded-2xl sm:rounded-3xl bg-[#F58A42] p-4 sm:p-5 flex flex-col justify-between shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden"
+              className="group cursor-pointer rounded-2xl sm:rounded-3xl bg-[#F58A42] p-3.5 sm:p-5 flex flex-col justify-between shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden"
             >
               {/* Foto Makanan Mengambang di Atas Kartu */}
-              <div className="relative w-full h-32 sm:h-40 my-2 flex items-center justify-center">
-                <div className="relative w-28 h-28 sm:w-36 sm:h-36 group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-full h-28 sm:h-40 my-1 sm:my-2 flex items-center justify-center">
+                <div className="relative w-24 h-24 sm:w-36 sm:h-36 group-hover:scale-110 transition-transform duration-300">
                   <Image
                     src={cat.image}
                     alt={categoryTitle}
@@ -82,13 +82,13 @@ export default function CategorySection({
                 </div>
               </div>
 
-              {/* Bar Bawah: Title Kiri & Arrow Button Kanan Persis Gambar 1 */}
-              <div className="pt-3 flex items-center justify-between">
-                <span className="font-heading font-black text-xs sm:text-sm md:text-base uppercase tracking-wide text-[#291E16] truncate mr-2">
+              {/* Bar Bawah: Title Kiri & Arrow Button Kanan */}
+              <div className="pt-2 sm:pt-3 flex items-center justify-between">
+                <span className="font-heading font-black text-xs sm:text-sm md:text-base uppercase tracking-wide text-[#291E16] truncate mr-1.5">
                   {categoryTitle}
                 </span>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#FAF5EB] text-[#291E16] group-hover:bg-[#291E16] group-hover:text-white flex items-center justify-center shrink-0 shadow-xs transition-colors">
-                  <ArrowUpRight className="w-4 h-4" />
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-[#FAF5EB] text-[#291E16] group-hover:bg-[#291E16] group-hover:text-white flex items-center justify-center shrink-0 shadow-xs transition-colors">
+                  <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Clock, Heart } from "lucide-react";
+import { MapPin, Phone, Clock, ArrowUpRight } from "lucide-react";
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -45,7 +45,7 @@ export default function Footer() {
             </div>
 
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-sm">
-              Menghadirkan kelezatan bolu chiffon keju susu legendaris dengan 100% susu murni lokal dan keju cheddar panggang melimpah. Freshly baked daily di Kabupaten Bandung.
+              Menghadirkan kelezatan bolu keju lembut dan aneka chiramisu khas Soreang, Kabupaten Bandung. Dipanggang segar setiap hari dengan bahan-bahan pilihan bermutu tinggi.
             </p>
 
             <div className="flex items-center gap-3 pt-1">
@@ -54,6 +54,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#EA580C] flex items-center justify-center text-white transition-colors"
+                aria-label="Instagram Bokis"
               >
                 <InstagramIcon className="w-4 h-4" />
               </a>
@@ -62,6 +63,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#22C55E] flex items-center justify-center text-white transition-colors"
+                aria-label="WhatsApp Admin Bokis"
               >
                 <Phone className="w-4 h-4" />
               </a>
@@ -80,45 +82,52 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#katalog" className="hover:text-amber-400 transition-colors">
-                  Varian Bolu
+                <Link href="#categories" className="hover:text-amber-400 transition-colors">
+                  Kategori Menu
                 </Link>
               </li>
               <li>
-                <Link href="#keunggulan" className="hover:text-amber-400 transition-colors">
-                  Kenapa Kami
+                <Link href="#katalog" className="hover:text-amber-400 transition-colors">
+                  Daftar Menu
+                </Link>
+              </li>
+              <li>
+                <Link href="#why-us" className="hover:text-amber-400 transition-colors">
+                  Keunggulan
                 </Link>
               </li>
               <li>
                 <Link href="#promo" className="hover:text-amber-400 transition-colors">
-                  Promo Spesial
+                  Penawaran Spesial
                 </Link>
               </li>
               <li>
                 <Link href="#testimoni" className="hover:text-amber-400 transition-colors">
-                  Ulasan Pelanggan
+                  Apresiasi Pelanggan
                 </Link>
               </li>
               <li>
                 <Link href="#faq" className="hover:text-amber-400 transition-colors">
-                  FAQ
+                  Pertanyaan Umum
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Kategori Menu */}
+          {/* Menu Unggulan */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              Varian Unggulan
+              Menu Pilihan
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
-              <li>Bolu Keju Susu Original (Signature)</li>
-              <li>Double Cheese Chiffon Melt</li>
-              <li>Bolu Susu Pandan Keju Wangi</li>
-              <li>Bolu Cokelat Keju Lumer</li>
-              <li>Paket Duo Hemat Soreang</li>
-              <li>Hampers Hantaran Spesial</li>
+              <li>Bokis Original (Rp 37.000)</li>
+              <li>Bokis Kiju Spesial (Rp 49.500)</li>
+              <li>Bokis Cokelat (Rp 40.000)</li>
+              <li>Bokis Kiju Pisang (Rp 40.000)</li>
+              <li>Chiramisu Triple Choco (Rp 29.000)</li>
+              <li>Chiramisu Original Coffee (Rp 25.000)</li>
+              <li>Chiramisu Pandan Matcha (Rp 29.000)</li>
+              <li>Chiramisu Strawberry Cheesecake (Rp 29.000)</li>
             </ul>
           </div>
 
@@ -140,19 +149,29 @@ export default function Footer() {
               </div>
               <div className="flex items-start gap-2">
                 <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>0812-3456-7890 (Direct WA)</span>
+                <span>0812-3456-7890 (Layanan WhatsApp)</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Copyright */}
+        {/* Bottom Copyright & Credit Buatan Gerobaklink */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-          <p>© {new Date().getFullYear()} Bokis Bakery. All rights reserved. Khas Soreang, Kabupaten Bandung.</p>
-          <div className="flex items-center gap-1">
-            <span>Crafted with</span>
-            <Heart className="w-3.5 h-3.5 text-rose-500 fill-current" />
-            <span>for Bolu Keju Lovers</span>
+          <p>© {new Date().getFullYear()} BOKIS - Bolu Kiju Soreang. Hak Cipta Dilindungi.</p>
+          
+          {/* Credit Gerobaklink */}
+          <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-xl text-gray-300 hover:border-amber-400/40 transition-colors">
+            <span>Website ini buatan</span>
+            <a
+              href="https://www.gerobaklink.my.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-bold text-amber-400 hover:text-amber-300 transition-colors"
+            >
+              <span>Gerobaklink</span>
+              <span className="text-amber-300/70 text-[11px] font-normal">(www.gerobaklink.my.id)</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
       </div>

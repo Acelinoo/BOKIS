@@ -42,7 +42,10 @@ export default function HomePage() {
             <WhyUsSection />
 
             {/* 4. Most Loved Treats dengan Modal Overview Lengkap (Gambar 2) */}
-            <ProductCatalog />
+            <ProductCatalog
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+            />
 
             {/* 5. Special Offer dengan 2 Split Cards 25% Off (Gambar 2) */}
             <SpecialOffer />
