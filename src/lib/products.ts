@@ -117,6 +117,30 @@ export const PRODUCTS: ProductItem[] = [
     imageUrl: "/images/products/bolu-pandan-double.jpg",
     isPopular: true,
   },
+  {
+    id: "bolu-pandan-extra",
+    slug: "bolu-pandan-extra",
+    name: "Pandan Extra",
+    category: "Bolu Kiju Soreang",
+    categorySlug: "bolu-kiju",
+    price: 45000,
+    originalPrice: 50000,
+    rating: 5.0,
+    reviewCount: 285,
+    badge: "PANDAN EXTRA 🧀",
+    description:
+      "Bolu pandan lembut beraroma daun suji & pandan alami dengan limpahan taburan keju cheddar parut segar yang menggunung dan berlimpah di seluruh permukaannya.",
+    ingredients: [
+      "Taburan Keju Parut Melimpah",
+      "Ekstrak Pandan & Suji Alami",
+      "Keju Cheddar Pilihan",
+      "Susu Murni Segar",
+      "Telur Segar",
+      "Mentega Asli",
+    ],
+    imageUrl: "/images/products/bolu-pandan-extra.jpg",
+    isPopular: true,
+  },
 
   // --- BOLU KEJU SABILULUNGAN: SERI CLASSIC LAINNYA ---
   {

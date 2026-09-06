@@ -47,24 +47,30 @@ const ALL_CREATIONS: CreationItem[] = [
   },
   {
     id: 6,
+    titleId: "Pandan Extra Taburan Parut Berlimpah",
+    titleEn: "Pandan Extra Abundant Shredded Cheese",
+    image: "/images/products/bolu-pandan-extra.jpg",
+  },
+  {
+    id: 7,
     titleId: "Cokelat Classic Manis & Gurih",
     titleEn: "Chocolate Classic Sweet & Savory",
     image: "/images/products/bolu-cokelat-classic.jpg",
   },
   {
-    id: 7,
+    id: 8,
     titleId: "Red Velvet Classic Keju Panggang",
     titleEn: "Red Velvet Classic Baked Cheese",
     image: "/images/products/bolu-red-velvet-classic.jpg",
   },
   {
-    id: 8,
+    id: 9,
     titleId: "Dessert Cube Matcha Lumer",
     titleEn: "Dessert Cube Matcha Melt",
     image: "/images/products/dessert-cube-matcha.jpg",
   },
   {
-    id: 9,
+    id: 10,
     titleId: "Dessert Cube Strawberry Segar",
     titleEn: "Dessert Cube Fresh Strawberry",
     image: "/images/products/dessert-cube-strawberry.jpg",
