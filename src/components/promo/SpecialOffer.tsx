@@ -80,7 +80,7 @@ export default function SpecialOffer() {
     <section
       id="promo"
       ref={sectionRef}
-      className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden w-full"
     >
       {/* Container Kuning Amber Besar */}
       <div className="relative rounded-[2rem] sm:rounded-[3rem] bg-[#F7A633] pt-10 sm:pt-12 pb-8 sm:pb-10 px-4 sm:px-10 md:px-14 shadow-lg overflow-hidden">

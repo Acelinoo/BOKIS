@@ -81,10 +81,10 @@ export default function HeroSection() {
     <section
       id="hero"
       ref={containerRef}
-      className={`w-full min-h-[100dvh] bg-gradient-to-b ${current.bgGradient} flex flex-col justify-between relative overflow-hidden select-none px-4 sm:px-12 md:px-16 pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-10 transition-colors duration-700`}
+      className={`w-full max-w-full min-h-[100dvh] bg-gradient-to-b ${current.bgGradient} flex flex-col justify-between relative overflow-hidden select-none px-4 sm:px-12 md:px-16 pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-10 transition-colors duration-700`}
     >
       {/* Ambient Radial Highlight di Fullscreen */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-white/15 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-0 sm:right-1/4 w-72 sm:w-[600px] h-72 sm:h-[600px] rounded-full bg-white/15 blur-2xl sm:blur-3xl pointer-events-none" />
 
       {/* --- 2. CENTER AREA: TEKS RAKSASA DI BELAKANG & KUE STATIS DI DEPAN --- */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full my-auto py-2 sm:py-4">

@@ -133,7 +133,7 @@ export default function CreationsGallery() {
     <section
       id="creations"
       ref={sectionRef}
-      className="scroll-mt-24 sm:scroll-mt-28 py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="scroll-mt-24 sm:scroll-mt-28 py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden w-full"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

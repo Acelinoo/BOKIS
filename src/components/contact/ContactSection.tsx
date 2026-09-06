@@ -22,22 +22,26 @@ export default function ContactSection() {
       gsap.from(".contact-left", {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 85%",
+          once: true,
         },
         opacity: 0,
-        x: -30,
-        duration: 0.7,
+        y: 25,
+        duration: 0.6,
+        clearProps: "all",
         ease: "power2.out",
       });
 
       gsap.from(".contact-right", {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 85%",
+          once: true,
         },
         opacity: 0,
-        x: 30,
-        duration: 0.7,
+        y: 25,
+        duration: 0.6,
+        clearProps: "all",
         ease: "power2.out",
       });
     },
@@ -61,7 +65,7 @@ export default function ContactSection() {
     <section
       id="kontak"
       ref={sectionRef}
-      className="scroll-mt-24 sm:scroll-mt-28 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="scroll-mt-24 sm:scroll-mt-28 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden w-full"
     >
       {/* 2 Kolom Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">

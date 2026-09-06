@@ -28,7 +28,7 @@ export default function Footer() {
   const { t, language } = useLanguage();
 
   return (
-    <footer className="bg-[#231815] text-[#FFFDF7] pt-10 sm:pt-16 pb-8 sm:pb-12 border-t border-amber-900/30">
+    <footer className="bg-[#231815] text-[#FFFDF7] pt-10 sm:pt-16 pb-8 sm:pb-12 border-t border-amber-900/30 overflow-hidden w-full max-w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 pb-8 sm:pb-12 border-b border-white/10">
           

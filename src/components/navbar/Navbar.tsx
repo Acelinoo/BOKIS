@@ -24,7 +24,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#FAF5EB]/95 backdrop-blur-md border-b border-[#F1E5D1] ${
+      className={`fixed top-0 left-0 right-0 z-50 w-full max-w-full transition-all duration-300 bg-[#FAF5EB]/95 backdrop-blur-md border-b border-[#F1E5D1] ${
         isScrolled
           ? "shadow-sm py-2 sm:py-2.5"
           : "shadow-2xs py-3 sm:py-3.5"

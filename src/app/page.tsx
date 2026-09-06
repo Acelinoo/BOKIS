@@ -22,12 +22,12 @@ export default function HomePage() {
   return (
     <LanguageProvider>
       <CartProvider>
-        <div className="min-h-screen flex flex-col bg-[#FAF5EB] text-[#291E16]">
+        <div className="min-h-screen flex flex-col bg-[#FAF5EB] text-[#291E16] overflow-x-hidden w-full max-w-full">
           {/* Navigasi Utama dengan Logo PNG & Switcher ID/EN */}
           <Navbar />
 
           {/* Main Content Sections */}
-          <main className="flex-1">
+          <main className="flex-1 w-full max-w-full overflow-x-hidden">
             {/* 1. Hero Section dengan Seamless Crossfade Slider (Tanpa Jeda) */}
             <HeroSection />
 

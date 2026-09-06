@@ -35,7 +35,7 @@ export default function BrandStatementSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full text-center"
+      className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full text-center overflow-hidden"
     >
       <p
         ref={textRef}

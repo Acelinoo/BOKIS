@@ -101,7 +101,7 @@ export default function TestimonialSection() {
     <section
       id="testimoni"
       ref={sectionRef}
-      className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden w-full"
     >
       {/* Top Header Row: Title Kiri & Contact Us Kanan */}
       <div className="testimonial-header flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-10">
