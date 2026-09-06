@@ -64,6 +64,8 @@ export interface I18nContent {
   testimonials: {
     title: string;
     contactUs: string;
+    giveReview: string;
+    reviewCallout: string;
   };
   creations: {
     title: string;
@@ -230,6 +232,8 @@ export const DICTIONARY: Record<Language, I18nContent> = {
     testimonials: {
       title: "APRESIASI PELANGGAN",
       contactUs: "Hubungi Kami",
+      giveReview: "Berikan Ulasan",
+      reviewCallout: "Sudah mencicipi kelembutan Bolu Bokis? Bagikan pengalaman manis Anda di Google Review!",
     },
     creations: {
       title: "GALERI KREASI KAMI",
@@ -394,6 +398,8 @@ export const DICTIONARY: Record<Language, I18nContent> = {
     testimonials: {
       title: "CUSTOMER APPRECIATION",
       contactUs: "Contact Us",
+      giveReview: "Write a Review",
+      reviewCallout: "Tasted our soft chiffon cake? Share your sweet experience on Google Review!",
     },
     creations: {
       title: "OUR GALLERY",
