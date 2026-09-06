@@ -28,15 +28,15 @@ export default function Footer() {
   const { t, language } = useLanguage();
 
   return (
-    <footer className="bg-[#231815] text-[#FFFDF7] pt-16 pb-12 border-t border-amber-900/30">
+    <footer className="bg-[#231815] text-[#FFFDF7] pt-10 sm:pt-16 pb-8 sm:pb-12 border-t border-amber-900/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 pb-8 sm:pb-12 border-b border-white/10">
           
-          {/* Brand Info */}
-          <div className="lg:col-span-4 space-y-4">
+          {/* 1. Brand Info */}
+          <div className="lg:col-span-4 space-y-3 sm:space-y-4">
             {/* Logo Resmi Bokis - Presisi & Elegan */}
-            <div className="inline-flex items-center justify-center bg-[#FAF5EB] px-4 py-2 rounded-2xl shadow-xs border border-[#F1E5D1]">
-              <div className="relative h-11 w-28 sm:w-32">
+            <div className="inline-flex items-center justify-center bg-[#FAF5EB] px-3.5 py-1.5 rounded-2xl shadow-xs border border-[#F1E5D1]">
+              <div className="relative h-10 sm:h-11 w-28 sm:w-32">
                 <Image
                   src="/images/brand/logo-bokis.png"
                   alt="BOKIS - Bolu Kiju Soreang"
@@ -52,12 +52,12 @@ export default function Footer() {
               {t.footer.brandDesc}
             </p>
 
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex items-center gap-2.5 pt-0.5">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#EA580C] flex items-center justify-center text-white transition-colors"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 hover:bg-[#EA580C] flex items-center justify-center text-white transition-colors"
                 aria-label="Instagram Bokis"
               >
                 <InstagramIcon className="w-4 h-4" />
@@ -66,7 +66,7 @@ export default function Footer() {
                 href="https://wa.me/6281234567890"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#22C55E] flex items-center justify-center text-white transition-colors"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 hover:bg-[#22C55E] flex items-center justify-center text-white transition-colors"
                 aria-label="WhatsApp Admin Bokis"
               >
                 <Phone className="w-4 h-4" />
@@ -74,86 +74,81 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {t.footer.quickNav}
-            </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
-              <li>
-                <Link href="#hero" className="hover:text-amber-400 transition-colors">
-                  {t.footer.navHome}
-                </Link>
-              </li>
-              <li>
-                <Link href="#categories" className="hover:text-amber-400 transition-colors">
-                  {t.footer.navCategories}
-                </Link>
-              </li>
-              <li>
-                <Link href="#katalog" className="hover:text-amber-400 transition-colors">
-                  {t.footer.navMenu}
-                </Link>
-              </li>
-              <li>
-                <Link href="#why-us" className="hover:text-amber-400 transition-colors">
-                  {t.footer.navWhyUs}
-                </Link>
-              </li>
-              <li>
-                <Link href="#promo" className="hover:text-amber-400 transition-colors">
-                  {t.footer.navPromo}
-                </Link>
-              </li>
-              <li>
-                <Link href="#testimoni" className="hover:text-amber-400 transition-colors">
-                  {t.footer.navTestimonials}
-                </Link>
-              </li>
-              <li>
-                <Link href="#faq" className="hover:text-amber-400 transition-colors">
-                  {t.footer.navFaq}
-                </Link>
-              </li>
-            </ul>
+          {/* 2 & 3. Navigasi Cepat & Menu Pilihan (Dibuat 2 Kolom Berdampingan di Mobile agar Rapi & Kompak) */}
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:col-span-5 pt-1 sm:pt-0">
+            {/* Quick Links */}
+            <div className="space-y-2 sm:space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
+                {t.footer.quickNav}
+              </h4>
+              <ul className="space-y-1.5 text-xs sm:text-sm text-gray-300">
+                <li>
+                  <Link href="#hero" className="hover:text-amber-400 transition-colors">
+                    {t.footer.navHome}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#katalog" className="hover:text-amber-400 transition-colors">
+                    {t.footer.navMenu}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#why-us" className="hover:text-amber-400 transition-colors">
+                    {t.footer.navWhyUs}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#promo" className="hover:text-amber-400 transition-colors">
+                    {t.footer.navPromo}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#creations" className="hover:text-amber-400 transition-colors">
+                    {t.nav.creations}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#faq" className="hover:text-amber-400 transition-colors">
+                    {t.footer.navFaq}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Menu Unggulan Ringkas */}
+            <div className="space-y-2 sm:space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
+                {t.footer.featuredTitle}
+              </h4>
+              <ul className="space-y-1.5 text-xs sm:text-sm text-gray-300">
+                <li>{language === "id" ? "Keju Classic (37k)" : "Classic Cheese (37k)"}</li>
+                <li>{language === "id" ? "Keju Double (49.5k)" : "Double Cheese (49.5k)"}</li>
+                <li>{language === "id" ? "Keju Extra (45k)" : "Extra Cheese (45k)"}</li>
+                <li>{language === "id" ? "Pandan Classic (37k)" : "Classic Pandan (37k)"}</li>
+                <li>{language === "id" ? "Cokelat Classic (40k)" : "Chocolate (40k)"}</li>
+                <li>{language === "id" ? "Dessert Cube (29k)" : "Dessert Cube (29k)"}</li>
+              </ul>
+            </div>
           </div>
 
-          {/* Menu Unggulan */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {t.footer.featuredTitle}
-            </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
-              <li>{language === "id" ? "Keju Classic (Rp 37.000)" : "Classic Cheese (Rp 37,000)"}</li>
-              <li>{language === "id" ? "Keju Double (Rp 49.500)" : "Double Cheese (Rp 49,500)"}</li>
-              <li>{language === "id" ? "Keju Extra (Rp 45.000)" : "Extra Cheese (Rp 45,000)"}</li>
-              <li>{language === "id" ? "Pandan Classic (Rp 37.000)" : "Classic Pandan (Rp 37,000)"}</li>
-              <li>{language === "id" ? "Pandan Double (Rp 49.500)" : "Double Pandan (Rp 49,500)"}</li>
-              <li>{language === "id" ? "Cokelat Classic (Rp 40.000)" : "Classic Chocolate (Rp 40,000)"}</li>
-              <li>{language === "id" ? "Red Velvet Classic (Rp 42.000)" : "Classic Red Velvet (Rp 42,000)"}</li>
-              <li>{language === "id" ? "Dessert Cube Matcha (Rp 29.000)" : "Matcha Dessert Cube (Rp 29,000)"}</li>
-              <li>{language === "id" ? "Dessert Cube Strawberry (Rp 29.000)" : "Strawberry Dessert Cube (Rp 29,000)"}</li>
-            </ul>
-          </div>
-
-          {/* Jam & Alamat Outlet */}
-          <div className="lg:col-span-3 space-y-3">
+          {/* 4. Jam & Alamat Outlet Soreang */}
+          <div className="lg:col-span-3 space-y-2 sm:space-y-3 pt-2 lg:pt-0">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
               {t.footer.outletTitle}
             </h4>
-            <div className="space-y-2.5 text-xs text-gray-300">
+            <div className="space-y-2 text-xs text-gray-300">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>
+                <span className="leading-snug">
                   {t.footer.address}
                 </span>
               </div>
-              <div className="flex items-start gap-2">
-                <Clock className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>{t.footer.hours}</span>
               </div>
-              <div className="flex items-start gap-2">
-                <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>{t.footer.whatsappService}</span>
               </div>
             </div>
@@ -161,7 +156,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright & Credit Buatan Gerobaklink */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs text-gray-400 text-center sm:text-left">
           <p>© {new Date().getFullYear()} BOKIS - Bolu Kiju Soreang. {t.footer.copyright}</p>
           
           {/* Credit Gerobaklink */}

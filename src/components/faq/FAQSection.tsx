@@ -58,7 +58,7 @@ const BEHANCE_FAQS: FAQItem[] = [
 
 export default function FAQSection() {
   const { language, t } = useLanguage();
-  const [openIndex, setOpenIndex] = useState<number | null>(1);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -66,23 +66,13 @@ export default function FAQSection() {
       gsap.from(".faq-title", {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 85%",
-        },
-        opacity: 0,
-        y: 25,
-        duration: 0.6,
-        ease: "power2.out",
-      });
-
-      gsap.from(".faq-item", {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
+          start: "top 90%",
+          once: true,
         },
         opacity: 0,
         y: 20,
-        stagger: 0.08,
-        duration: 0.55,
+        duration: 0.5,
+        clearProps: "all",
         ease: "power2.out",
       });
     },
@@ -116,15 +106,23 @@ export default function FAQSection() {
           return (
             <div
               key={idx}
-              className="faq-item rounded-2xl sm:rounded-3xl bg-[#FFFDF7] border border-[#EADBCC] shadow-xs overflow-hidden transition-all duration-200"
+              className={`faq-item rounded-2xl sm:rounded-3xl border shadow-xs overflow-hidden transition-all duration-200 ${
+                isOpen
+                  ? "bg-[#FFFDF7] border-[#F7A334]/60 shadow-sm"
+                  : "bg-[#FFFDF7] border-[#EADBCC] hover:border-[#F7A334]/40"
+              }`}
             >
               <button
                 onClick={() => toggle(idx)}
-                className="w-full text-left px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer"
+                className="w-full text-left px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer select-none"
                 aria-expanded={isOpen}
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-1.5 h-4 sm:h-5 rounded-full bg-[#F58A42] shrink-0" />
+                  <div
+                    className={`w-1.5 h-4 sm:h-5 rounded-full shrink-0 transition-colors ${
+                      isOpen ? "bg-[#F7A334]" : "bg-[#F58A42]"
+                    }`}
+                  />
                   <span className="font-heading font-black text-xs sm:text-sm md:text-base text-[#291E16] uppercase tracking-wide">
                     {question}
                   </span>
@@ -133,15 +131,15 @@ export default function FAQSection() {
                 {/* Tombol Bulat Oranye + / - */}
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#F58A42] text-white flex items-center justify-center shrink-0 shadow-2xs">
                   {isOpen ? (
-                    <Minus className="w-3.5 h-3.5" />
+                    <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
                   ) : (
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
                   )}
                 </div>
               </button>
 
               {isOpen && (
-                <div className="px-5 sm:px-7 pb-5 pt-1 pl-10 sm:pl-12 text-xs sm:text-sm text-[#786C65] leading-relaxed font-medium animate-in fade-in duration-200">
+                <div className="px-5 sm:px-7 pb-5 pt-1 pl-9 sm:pl-11 text-xs sm:text-sm text-[#3D2E24] leading-relaxed font-medium animate-in fade-in duration-200">
                   {answer}
                 </div>
               )}
