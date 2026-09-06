@@ -34,7 +34,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 42000,
     rating: 5.0,
     reviewCount: 410,
-    badge: "SIGNATURE ⭐",
+    badge: "SIGNATURE",
     description:
       "Bolu keju lembut khas Sabilulungan Soreang dengan cita rasa keju otentik dan taburan keju cheddar panggang gurih di bagian atasnya.",
     ingredients: ["Keju Cheddar Pilihan", "Susu Murni Segar", "Telur Segar", "Tepung Terigu", "Mentega Asli"],
@@ -51,7 +51,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 55000,
     rating: 5.0,
     reviewCount: 380,
-    badge: "BEST SELLER 🧀",
+    badge: "BEST SELLER",
     description:
       "Bolu keju istimewa dengan kenikmatan ganda: taburan keju cheddar panggang renyah di atas plus potongan keju dadu gurih melimpah di dalam adonan.",
     ingredients: ["Potongan Keju Dadu", "Keju Cheddar Panggang", "Susu Murni Segar", "Telur Segar", "Mentega Asli"],
@@ -68,7 +68,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 50000,
     rating: 5.0,
     reviewCount: 295,
-    badge: "EXTRA CHEESE 🧀",
+    badge: "EXTRA CHEESE",
     description:
       "Bolu keju super lembut dengan limpahan taburan keju cheddar parut segar yang menggunung dan berlimpah di seluruh permukaan bolu.",
     ingredients: ["Taburan Keju Parut Melimpah", "Keju Cheddar Pilihan", "Susu Murni Segar", "Telur Segar", "Mentega Asli"],
@@ -87,7 +87,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 42000,
     rating: 4.9,
     reviewCount: 275,
-    badge: "PANDAN ALAMI 🌿",
+    badge: "PANDAN ALAMI",
     description:
       "Bolu pandan lembut beraroma daun suji & pandan alami yang harum menyegarkan, disempurnakan taburan keju cheddar panggang gurih di atasnya.",
     ingredients: ["Ekstrak Daun Pandan & Suji", "Keju Cheddar Panggang", "Susu Murni Segar", "Telur Segar", "Mentega Asli"],
@@ -104,7 +104,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 55000,
     rating: 5.0,
     reviewCount: 320,
-    badge: "DOUBLE CHEESE 🧀",
+    badge: "DOUBLE CHEESE",
     description:
       "Bolu pandan wangi alami dengan keistimewaan ganda: taburan keju cheddar panggang renyah di atas serta potongan keju dadu gurih melimpah di dalam adonan kue.",
     ingredients: [
@@ -127,7 +127,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 50000,
     rating: 5.0,
     reviewCount: 285,
-    badge: "PANDAN EXTRA 🧀",
+    badge: "PANDAN EXTRA",
     description:
       "Bolu pandan lembut beraroma daun suji & pandan alami dengan limpahan taburan keju cheddar parut segar yang menggunung dan berlimpah di seluruh permukaannya.",
     ingredients: [
@@ -153,7 +153,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 45000,
     rating: 4.9,
     reviewCount: 290,
-    badge: "FAVORIT 🍫",
+    badge: "FAVORIT",
     description:
       "Bolu chiffon cokelat empuk berpori halus khas Sabilulungan dengan cita rasa cokelat mantap, dilengkapi taburan keju panggang dan choco chips renyah di atasnya.",
     ingredients: [
@@ -176,7 +176,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 48000,
     rating: 4.9,
     reviewCount: 265,
-    badge: "NEW FLAVOR ✨",
+    badge: "NEW FLAVOR",
     description:
       "Bolu red velvet bertekstur moist dan lembut dengan aroma vanila-kakao yang elegan, disempurnakan taburan keju cheddar panggang gurih di bagian atasnya.",
     ingredients: [
@@ -201,7 +201,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 32000,
     rating: 5.0,
     reviewCount: 342,
-    badge: "DESSERT CUBE 🍵",
+    badge: "DESSERT CUBE",
     description:
       "Dessert Cube istimewa dengan susunan sponge cake lembut, krim susu gurih lumer, lelehan saus matcha wangi, dan taburan bubuk matcha pilihan otentik.",
     ingredients: [
@@ -224,7 +224,7 @@ export const PRODUCTS: ProductItem[] = [
     originalPrice: 32000,
     rating: 4.9,
     reviewCount: 310,
-    badge: "DESSERT CUBE 🍓",
+    badge: "DESSERT CUBE",
     description:
       "Dessert Cube segar dengan layer bolu empuk, lumuran krim keju lembut gurih, siraman selai stroberi melimpah, dan sensasi asam manis menyegarkan.",
     ingredients: [

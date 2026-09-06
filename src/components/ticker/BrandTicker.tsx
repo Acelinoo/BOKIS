@@ -4,12 +4,12 @@ import React from "react";
 
 export default function BrandTicker() {
   const items = [
-    "🧀 100% Keju Cheddar Panggang",
-    "🥛 Susu Murni Peternakan Segar",
-    "✨ Freshly Baked Daily dari Soreang",
-    "🚚 Pengiriman Instant & Sameday Bandung Raya",
-    "🍃 Tanpa Pengawet Buatan",
-    "🎁 Siap untuk Hampers & Hantaran",
+    "100% Keju Cheddar Panggang",
+    "Susu Murni Peternakan Segar",
+    "Freshly Baked Daily dari Soreang",
+    "Pengiriman Instant & Sameday Bandung Raya",
+    "Tanpa Pengawet Buatan",
+    "Siap untuk Hampers & Hantaran",
   ];
 
   return (

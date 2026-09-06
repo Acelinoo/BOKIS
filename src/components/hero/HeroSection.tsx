@@ -304,7 +304,7 @@ export default function HeroSection() {
         <p className="font-heading font-bold text-[11px] sm:text-xs md:text-[13px] uppercase tracking-normal text-[#291E16] leading-relaxed">
           {t.hero.brandStatement.pre}{" "}
           <span className="inline-block align-middle mx-1 px-2 py-0.5 rounded-md bg-[#F58A42] text-white text-[10px]">
-            🧀 {t.hero.brandStatement.tag}
+            {t.hero.brandStatement.tag}
           </span>
           {t.hero.brandStatement.mid}{" "}
           <span className="text-[#786C65]">
