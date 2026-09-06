@@ -15,7 +15,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 80);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -23,10 +23,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ease-out ${
         isScrolled
-          ? "bg-[#FAF5EB]/95 backdrop-blur-md shadow-xs py-2.5 border-b border-[#F1E5D1]"
-          : "bg-transparent py-4"
+          ? "bg-[#FAF5EB]/95 backdrop-blur-md shadow-sm py-2.5 border-b border-[#F1E5D1] opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-6 pointer-events-none"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
