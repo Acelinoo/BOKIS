@@ -120,14 +120,15 @@ export default function Footer() {
               Menu Pilihan
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
-              <li>Bokis Original (Rp 37.000)</li>
-              <li>Bokis Kiju Spesial (Rp 49.500)</li>
-              <li>Bokis Cokelat (Rp 40.000)</li>
-              <li>Bokis Kiju Pisang (Rp 40.000)</li>
-              <li>Chiramisu Triple Choco (Rp 29.000)</li>
-              <li>Chiramisu Original Coffee (Rp 25.000)</li>
-              <li>Chiramisu Pandan Matcha (Rp 29.000)</li>
-              <li>Chiramisu Strawberry Cheesecake (Rp 29.000)</li>
+              <li>Keju Classic (Rp 37.000)</li>
+              <li>Keju Double (Rp 49.500)</li>
+              <li>Keju Extra (Rp 45.000)</li>
+              <li>Pandan Classic (Rp 37.000)</li>
+              <li>Pandan Double (Rp 49.500)</li>
+              <li>Cokelat Classic (Rp 40.000)</li>
+              <li>Red Velvet Classic (Rp 42.000)</li>
+              <li>Dessert Cube Matcha (Rp 29.000)</li>
+              <li>Dessert Cube Strawberry (Rp 29.000)</li>
             </ul>
           </div>
 

@@ -45,13 +45,16 @@ export default function ProductCatalog({
     { id: "all", label: t.treats.tabs.all },
     { id: "top-picks", label: t.treats.tabs.topPicks },
     { id: "bolu-kiju", label: t.treats.tabs.boluKiju },
-    { id: "chiramisu", label: t.treats.tabs.chiramisu },
+    { id: "dessert-cube", label: t.treats.tabs.dessertCube },
   ];
 
   const filteredItems = PRODUCTS.filter((item) => {
     if (activeTab === "all") return true;
     if (activeTab === "top-picks") {
-      return item.id === "bokis-original" || item.id === "bokis-kiju-spesial";
+      return item.isPopular;
+    }
+    if (activeTab === "chiramisu" || activeTab === "dessert-cube") {
+      return item.categorySlug === "dessert-cube" || item.categorySlug === "chiramisu";
     }
     return item.categorySlug === activeTab;
   });
@@ -158,7 +161,7 @@ export default function ProductCatalog({
               title={t.treats.quickView}
             >
               {/* Foto Produk dengan Tag Harga & Kategori */}
-              <div className="relative w-full h-36 sm:h-48 md:h-52 rounded-xl sm:rounded-2xl overflow-hidden bg-white/70 flex items-center justify-center p-2 mb-2 sm:mb-3">
+              <div className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden bg-white/70 flex items-center justify-center mb-2 sm:mb-3">
                 
                 {/* Price Tag Kiri Atas */}
                 <div className="absolute top-2 left-2 z-10 bg-[#FFFDF7]/95 backdrop-blur-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg shadow-xs border border-amber-100">
@@ -194,7 +197,7 @@ export default function ProductCatalog({
                     alt={item.name}
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
               </div>

@@ -8,7 +8,7 @@ import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
 
 interface CategoryCardProps {
-  keyId: "topPicks" | "boluKiju" | "chiramisu" | "allMenu";
+  keyId: "topPicks" | "boluKiju" | "dessertCube" | "allMenu";
   image: string;
   filterSlug: string;
 }
@@ -16,22 +16,22 @@ interface CategoryCardProps {
 const CATEGORY_LIST: CategoryCardProps[] = [
   {
     keyId: "topPicks",
-    image: "/images/products/bolu-keju-original.jpg",
+    image: "/images/products/bolu-keju-double.jpg",
     filterSlug: "top-picks",
   },
   {
     keyId: "boluKiju",
-    image: "/images/products/bolu-keju-turnaround.jpg",
+    image: "/images/products/bolu-keju-extra.jpg",
     filterSlug: "bolu-kiju",
   },
   {
-    keyId: "chiramisu",
-    image: "/images/hero/bolu-hero-splash.jpg",
-    filterSlug: "chiramisu",
+    keyId: "dessertCube",
+    image: "/images/products/dessert-cube-strawberry.jpg",
+    filterSlug: "dessert-cube",
   },
   {
     keyId: "allMenu",
-    image: "/images/products/bolu-keju-original.jpg",
+    image: "/images/products/bolu-pandan-double.jpg",
     filterSlug: "all",
   },
 ];

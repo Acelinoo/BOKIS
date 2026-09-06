@@ -95,11 +95,11 @@ export default function SpecialOffer() {
         {/* 2 Promo Cards: 2 CARD DI MODE MOBILE (grid-cols-2) */}
         <div className="grid grid-cols-2 gap-3 sm:gap-6 relative z-10">
           
-          {/* Card 1: BOKIS KIJU SPESIAL */}
+          {/* Card 1: PANDAN DOUBLE */}
           <div className="promo-card relative rounded-2xl sm:rounded-3xl bg-[#FFFDF7] p-3 sm:p-6 md:p-8 flex flex-col justify-between shadow-sm border border-amber-100 group hover:shadow-md transition-shadow">
             <div className="space-y-1.5 sm:space-y-2 text-left">
               <h3 className="font-heading font-black text-xs sm:text-xl md:text-2xl uppercase tracking-tight text-[#291E16] line-clamp-1 sm:line-clamp-none">
-                {language === "id" ? "BOKIS KIJU SPESIAL" : "SPECIAL CHEESE CHIFFON"}
+                {language === "id" ? "PANDAN DOUBLE" : "PANDAN DOUBLE CHEESE"}
               </h3>
 
               <div className="flex items-center gap-1 text-[10px] sm:text-xs font-bold text-[#F58A42]">
@@ -110,8 +110,8 @@ export default function SpecialOffer() {
 
               <p className="text-[10px] sm:text-xs text-[#786C65] leading-relaxed font-medium pt-0.5 line-clamp-2 sm:line-clamp-3">
                 {language === "id"
-                  ? "Bolu keju lembut dengan potongan keju dadu di dalamnya serta taburan keju panggang melimpah."
-                  : "Soft cheese chiffon cake with rich diced cheddar baked inside and savory topping."}
+                  ? "Bolu pandan harum alami dengan taburan keju panggang di atas serta potongan dadu keju melimpah di dalam."
+                  : "Fragrant pandan chiffon with baked cheese topping and rich diced cheese baked inside."}
               </p>
             </div>
 
@@ -124,11 +124,11 @@ export default function SpecialOffer() {
 
               <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-300">
                 <Image
-                  src="/images/products/bolu-keju-turnaround.jpg"
-                  alt="Bokis Kiju Spesial"
+                  src="/images/products/bolu-pandan-double.jpg"
+                  alt="Pandan Double"
                   fill
                   sizes="(max-width: 768px) 50vw, 250px"
-                  className="object-contain"
+                  className="object-contain rounded-xl"
                 />
               </div>
             </div>
@@ -138,11 +138,11 @@ export default function SpecialOffer() {
               <button
                 onClick={() =>
                   handleClaim(
-                    "promo-bokis-kiju-spesial",
-                    "Bokis Kiju Spesial (Promo 25%)",
+                    "promo-bolu-pandan-double",
+                    "Pandan Double (Promo 25%)",
                     37125,
-                    "/images/products/bolu-keju-turnaround.jpg",
-                    "Penawaran Spesial: Bokis Kiju Spesial diskon 25%."
+                    "/images/products/bolu-pandan-double.jpg",
+                    "Penawaran Spesial: Pandan Double diskon 25%."
                   )
                 }
                 className="w-full sm:w-auto px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#F58A42] hover:bg-[#291E16] text-white font-heading font-bold text-[10px] sm:text-xs transition-colors cursor-pointer text-center"
@@ -152,11 +152,11 @@ export default function SpecialOffer() {
             </div>
           </div>
 
-          {/* Card 2: CHIRAMISU TRIPLE CHOCO */}
+          {/* Card 2: DESSERT CUBE STRAWBERRY */}
           <div className="promo-card relative rounded-2xl sm:rounded-3xl bg-[#FFFDF7] p-3 sm:p-6 md:p-8 flex flex-col justify-between shadow-sm border border-amber-100 group hover:shadow-md transition-shadow">
             <div className="space-y-1.5 sm:space-y-2 text-left">
               <h3 className="font-heading font-black text-xs sm:text-xl md:text-2xl uppercase tracking-tight text-[#291E16] line-clamp-1 sm:line-clamp-none">
-                {language === "id" ? "CHIRAMISU TRIPLE CHOCO" : "CHIRAMISU TRIPLE CHOCO"}
+                {language === "id" ? "DESSERT CUBE STRAWBERRY" : "DESSERT CUBE STRAWBERRY"}
               </h3>
 
               <div className="flex items-center gap-1 text-[10px] sm:text-xs font-bold text-[#F58A42]">
@@ -167,8 +167,8 @@ export default function SpecialOffer() {
 
               <p className="text-[10px] sm:text-xs text-[#786C65] leading-relaxed font-medium pt-0.5 line-clamp-2 sm:line-clamp-3">
                 {language === "id"
-                  ? "Bolu cokelat lembut berpadu siraman krim cokelat istimewa serta taburan crumble renyah."
-                  : "Soft chocolate chiffon cake topped with velvety cocoa cream and crisp crumble."}
+                  ? "Layer bolu lembut, lumuran krim keju manis gurih, dan limpahan selai buah stroberi segar pilihan."
+                  : "Soft sponge cake layers, savory sweet cream cheese, and luscious fresh strawberry glaze."}
               </p>
             </div>
 
@@ -181,11 +181,11 @@ export default function SpecialOffer() {
 
               <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-300">
                 <Image
-                  src="/images/hero/bolu-hero-splash.jpg"
-                  alt="Chiramisu Triple Choco"
+                  src="/images/products/dessert-cube-strawberry.jpg"
+                  alt="Dessert Cube Strawberry"
                   fill
                   sizes="(max-width: 768px) 50vw, 250px"
-                  className="object-contain"
+                  className="object-contain rounded-xl"
                 />
               </div>
             </div>
@@ -195,11 +195,11 @@ export default function SpecialOffer() {
               <button
                 onClick={() =>
                   handleClaim(
-                    "promo-chiramisu-triple-choco",
-                    "Chiramisu Triple Choco (Promo 25%)",
+                    "promo-dessert-cube-strawberry",
+                    "Dessert Cube Strawberry (Promo 25%)",
                     21750,
-                    "/images/hero/bolu-hero-splash.jpg",
-                    "Penawaran Spesial: Chiramisu Triple Choco diskon 25%."
+                    "/images/products/dessert-cube-strawberry.jpg",
+                    "Penawaran Spesial: Dessert Cube Strawberry diskon 25%."
                   )
                 }
                 className="w-full sm:w-auto px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#F58A42] hover:bg-[#291E16] text-white font-heading font-bold text-[10px] sm:text-xs transition-colors cursor-pointer text-center"

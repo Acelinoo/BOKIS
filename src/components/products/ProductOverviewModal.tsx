@@ -89,8 +89,8 @@ export default function ProductOverviewModal({
             
             {/* Foto Produk Kiri */}
             <div className="md:col-span-5 flex flex-col items-center">
-              <div className="relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden bg-[#FAF5EB] border border-[#EADBCC] p-4 flex items-center justify-center shadow-xs">
-                <div className="absolute top-3 left-3 bg-[#F58A42] text-white font-heading font-black text-[11px] px-3 py-1 rounded-full shadow-xs">
+              <div className="relative w-full aspect-square max-h-72 rounded-3xl overflow-hidden bg-[#FAF5EB] border border-[#EADBCC] flex items-center justify-center shadow-xs">
+                <div className="absolute top-3 left-3 z-10 bg-[#F58A42] text-white font-heading font-black text-[11px] px-3 py-1 rounded-full shadow-xs">
                   {product.tag}
                 </div>
 
@@ -99,7 +99,7 @@ export default function ProductOverviewModal({
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-contain drop-shadow-md"
+                    className="object-cover"
                   />
                 </div>
               </div>

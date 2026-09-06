@@ -29,6 +29,7 @@ export interface I18nContent {
     title: string;
     topPicks: string;
     boluKiju: string;
+    dessertCube: string;
     chiramisu: string;
     allMenu: string;
   };
@@ -45,6 +46,7 @@ export interface I18nContent {
       all: string;
       topPicks: string;
       boluKiju: string;
+      dessertCube: string;
       chiramisu: string;
     };
     showMore: string;
@@ -153,6 +155,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
       title: "KATEGORI MENU",
       topPicks: "PILIHAN RESTO",
       boluKiju: "BOLU KIJU SOREANG",
+      dessertCube: "DESSERT CUBE",
       chiramisu: "ANEKA CHIRAMISU",
       allMenu: "SEMUA MENU",
     },
@@ -187,6 +190,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
         all: "Semua Menu",
         topPicks: "Pilihan Resto",
         boluKiju: "Bolu Kiju Soreang",
+        dessertCube: "Dessert Cube",
         chiramisu: "Aneka Chiramisu",
       },
       showMore: "Lihat Semua Menu",
@@ -293,6 +297,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
       title: "MENU CATEGORIES",
       topPicks: "RESTO'S TOP PICKS",
       boluKiju: "SOREANG CHEESE CHIFFON",
+      dessertCube: "DESSERT CUBE",
       chiramisu: "CHIRAMISU SELECTION",
       allMenu: "ALL MENUS",
     },
@@ -327,6 +332,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
         all: "All Menus",
         topPicks: "Resto's Top Picks",
         boluKiju: "Cheese Chiffon",
+        dessertCube: "Dessert Cube",
         chiramisu: "Chiramisu",
       },
       showMore: "View All Menus",
