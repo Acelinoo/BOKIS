@@ -126,12 +126,6 @@ export default function HeroSection() {
           { opacity: 0, y: 15 },
           { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" },
           "-=0.3"
-        )
-        .fromTo(
-          ".hero-brand-statement",
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-          "-=0.2"
         );
 
       // 2. Continuous Floating Idle Effect on Cake
@@ -148,31 +142,6 @@ export default function HeroSection() {
     { scope: containerRef }
   );
 
-  // Transisi GSAP Halus Saat Pergantian Slide
-  useEffect(() => {
-    if (cakeImageRef.current) {
-      gsap.fromTo(
-        cakeImageRef.current,
-        { scale: 0.92, opacity: 0.6 },
-        { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }
-      );
-    }
-    if (headlineRef.current) {
-      gsap.fromTo(
-        headlineRef.current,
-        { y: 8, opacity: 0.7 },
-        { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }
-      );
-    }
-    if (badgeRef.current) {
-      gsap.fromTo(
-        badgeRef.current,
-        { scale: 0.85 },
-        { scale: 1, duration: 0.4, ease: "back.out(2)" }
-      );
-    }
-  }, [activeSlide]);
-
   const current = HERO_SLIDES[activeSlide];
 
   const handleOrder = () => {
@@ -181,9 +150,6 @@ export default function HeroSection() {
       addToCart(product, 1);
     }
   };
-
-  const titleLines = language === "id" ? current.titleId : current.titleEn;
-  const subtitle = language === "id" ? current.subId : current.subEn;
 
   return (
     <section
@@ -196,41 +162,68 @@ export default function HeroSection() {
       {/* Container Utama Hero Card: Kuning Amber Mustard - Cukup 1 Layar Penuh */}
       <div className="hero-card-container relative rounded-[2rem] sm:rounded-[2.75rem] bg-[#F7A633] py-6 sm:py-8 md:py-10 px-5 sm:px-10 md:px-12 overflow-hidden shadow-md flex flex-col justify-between">
         
-        {/* Headline Tengah */}
-        <div className="text-center max-w-4xl mx-auto relative z-10 transition-all duration-300">
-          <h1
-            ref={headlineRef}
-            className="font-heading font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-normal leading-[1.08] text-[#291E16]"
-          >
-            {titleLines[0]} <br />
-            {titleLines[1]}
-          </h1>
-          <p className="hero-subtitle text-[11px] sm:text-xs md:text-sm font-heading font-bold text-[#291E16]/80 mt-1 sm:mt-1.5 uppercase tracking-wider">
-            {subtitle}
-          </p>
+        {/* Headline Tengah dengan Seamless Crossfade (Tanpa Jeda) */}
+        <div className="relative w-full min-h-[90px] sm:min-h-[125px] md:min-h-[145px] max-w-4xl mx-auto z-10 flex items-center justify-center">
+          {HERO_SLIDES.map((slide, idx) => {
+            const isActive = activeSlide === idx;
+            const lines = language === "id" ? slide.titleId : slide.titleEn;
+            const sub = language === "id" ? slide.subId : slide.subEn;
+
+            return (
+              <div
+                key={slide.id}
+                className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-700 ease-in-out ${
+                  isActive
+                    ? "opacity-100 translate-y-0 z-10 pointer-events-auto"
+                    : "opacity-0 translate-y-2 z-0 pointer-events-none"
+                }`}
+              >
+                <h1 className="font-heading font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-normal leading-[1.08] text-[#291E16] text-center">
+                  {lines[0]} <br />
+                  {lines[1]}
+                </h1>
+                <p className="hero-subtitle text-[11px] sm:text-xs md:text-sm font-heading font-bold text-[#291E16]/80 mt-1 sm:mt-1.5 uppercase tracking-wider text-center">
+                  {sub}
+                </p>
+              </div>
+            );
+          })}
         </div>
 
         {/* Center Visual Area: Foto Produk dengan Floating Animation & Scalloped Price Badge */}
         <div className="relative z-20 my-2 sm:my-3 md:my-4 flex items-center justify-center">
           <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 max-h-[36vh]">
             
-            {/* Foto Produk Aktif dengan Floating Idle Effect */}
+            {/* Stack Foto Produk dengan Seamless Dissolve Crossfade (Tanpa Jeda) */}
             <div
               ref={cakeImageRef}
               className="relative w-full h-full transform hover:scale-[1.03] transition-transform duration-300 cursor-pointer"
             >
-              <Image
-                key={current.id}
-                src={current.image}
-                alt={subtitle}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 360px"
-                className="object-contain drop-shadow-2xl rounded-3xl"
-              />
+              {HERO_SLIDES.map((slide, idx) => {
+                const isActive = activeSlide === idx;
+                return (
+                  <div
+                    key={slide.id}
+                    className={`absolute inset-0 w-full h-full transition-all duration-700 ease-in-out ${
+                      isActive
+                        ? "opacity-100 scale-100 z-10 pointer-events-auto"
+                        : "opacity-0 scale-95 z-0 pointer-events-none"
+                    }`}
+                  >
+                    <Image
+                      src={slide.image}
+                      alt={language === "id" ? slide.subId : slide.subEn}
+                      fill
+                      priority={idx === 0}
+                      sizes="(max-width: 768px) 100vw, 360px"
+                      className="object-contain drop-shadow-2xl rounded-3xl"
+                    />
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Scalloped Badge Harga dengan Pointer Line & GSAP Pop */}
+            {/* Scalloped Badge Harga dengan Pointer Line & Smooth Price Morph */}
             <div
               ref={badgeRef}
               className="absolute top-[20%] -right-2 sm:-right-4 md:right-0 z-30 flex items-center group pointer-events-auto"
@@ -240,14 +233,23 @@ export default function HeroSection() {
                 <div className="w-8 sm:w-10 h-1 bg-[#FFFDF7] shadow-xs -ml-1 rounded-full" />
               </div>
 
-              <div className="relative sm:-ml-2 bg-[#FFFDF7] text-[#291E16] px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl shadow-xl border border-amber-100 flex items-center justify-center transform group-hover:scale-105 transition-all duration-300">
-                <div className="text-center">
-                  <span className="text-[9px] sm:text-[10px] font-heading font-bold uppercase tracking-wider text-[#786C65] block leading-none">
-                    {t.hero.from}
-                  </span>
-                  <span className="font-heading font-black text-sm sm:text-lg md:text-xl text-[#291E16] leading-none mt-0.5 inline-block whitespace-nowrap">
-                    {current.price}
-                  </span>
+              <div className="relative sm:-ml-2 bg-[#FFFDF7] text-[#291E16] px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl shadow-xl border border-amber-100 flex flex-col items-center justify-center transform group-hover:scale-105 transition-all duration-300 min-w-[95px] sm:min-w-[120px]">
+                <span className="text-[9px] sm:text-[10px] font-heading font-bold uppercase tracking-wider text-[#786C65] block leading-none">
+                  {t.hero.from}
+                </span>
+                <div className="relative h-5 sm:h-6 w-full mt-0.5 overflow-hidden">
+                  {HERO_SLIDES.map((slide, idx) => (
+                    <span
+                      key={slide.id}
+                      className={`absolute inset-0 flex items-center justify-center font-heading font-black text-sm sm:text-lg md:text-xl text-[#291E16] leading-none whitespace-nowrap transition-all duration-500 ease-in-out ${
+                        activeSlide === idx
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 translate-y-2 pointer-events-none"
+                      }`}
+                    >
+                      {slide.price}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -297,20 +299,6 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Brand Statement Bar Formal */}
-      <div className="hero-brand-statement mt-3 max-w-4xl mx-auto text-center px-4">
-        <p className="font-heading font-bold text-[11px] sm:text-xs md:text-[13px] uppercase tracking-normal text-[#291E16] leading-relaxed">
-          {t.hero.brandStatement.pre}{" "}
-          <span className="inline-block align-middle mx-1 px-2 py-0.5 rounded-md bg-[#F58A42] text-white text-[10px]">
-            {t.hero.brandStatement.tag}
-          </span>
-          {t.hero.brandStatement.mid}{" "}
-          <span className="text-[#786C65]">
-            {t.hero.brandStatement.body}
-          </span>
-        </p>
       </div>
     </section>
   );

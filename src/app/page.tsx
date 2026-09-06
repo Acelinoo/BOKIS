@@ -5,7 +5,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/navbar/Navbar";
 import HeroSection from "@/components/hero/HeroSection";
-import CategorySection from "@/components/categories/CategorySection";
+import BrandStatementSection from "@/components/brand/BrandStatementSection";
 import WhyUsSection from "@/components/why-us/WhyUsSection";
 import ProductCatalog from "@/components/products/ProductCatalog";
 import SpecialOffer from "@/components/promo/SpecialOffer";
@@ -19,10 +19,6 @@ import Footer from "@/components/footer/Footer";
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const handleCategorySelect = (slug: string) => {
-    setSelectedCategory(slug);
-  };
-
   return (
     <LanguageProvider>
       <CartProvider>
@@ -30,18 +26,18 @@ export default function HomePage() {
           {/* Navigasi Utama dengan Logo PNG & Switcher ID/EN */}
           <Navbar />
 
-          {/* Main Content Sections (Persis Urutan Halaman Behance Sweet Nest) */}
+          {/* Main Content Sections */}
           <main className="flex-1">
-            {/* 1. Hero Section dengan Functional 5 Slider Dots & Bilingual (Gambar 1 & 2) */}
+            {/* 1. Hero Section dengan Seamless Crossfade Slider (Tanpa Jeda) */}
             <HeroSection />
 
-            {/* 2. Our Categories (Gambar 1) */}
-            <CategorySection onSelectCategory={handleCategorySelect} />
+            {/* 2. Brand Statement Section (Diperbesar, diletakkan tepat di bawah Hero) */}
+            <BrandStatementSection />
 
-            {/* 3. Why Us dengan Icon Gandum Murni (Wheat) tanpa Sparkles (Gambar 1 & 3) */}
+            {/* 3. Why Us dengan Icon Gandum Murni (Wheat) tanpa Sparkles */}
             <WhyUsSection />
 
-            {/* 4. Most Loved Treats dengan Modal Overview Lengkap (Gambar 2) */}
+            {/* 4. Most Loved Treats dengan Filter Kategori & Modal Overview Lengkap */}
             <ProductCatalog
               selectedCategory={selectedCategory}
               onCategoryChange={setSelectedCategory}

@@ -46,19 +46,13 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Nav Links: Sesuai Header Behance dengan Terjemahan Bilingual */}
+          {/* Desktop Nav Links: Sesuai Header dengan Terjemahan Bilingual */}
           <nav className="hidden md:flex items-center gap-7 text-sm font-bold text-[#291E16]">
             <Link
               href="#hero"
               className="hover:text-[#F7A334] transition-colors py-1"
             >
               {t.nav.home}
-            </Link>
-            <Link
-              href="#categories"
-              className="hover:text-[#F7A334] transition-colors py-1"
-            >
-              {t.nav.categories}
             </Link>
             <Link
               href="#katalog"
@@ -150,9 +144,6 @@ export default function Navbar() {
           <div className="md:hidden mt-3 p-4 rounded-2xl bg-white border border-[#F1E5D1] shadow-lg flex flex-col gap-3 text-sm font-bold text-[#291E16]">
             <Link href="#hero" onClick={() => setMobileMenuOpen(false)} className="py-1">
               {t.nav.home}
-            </Link>
-            <Link href="#categories" onClick={() => setMobileMenuOpen(false)} className="py-1">
-              {t.nav.categories}
             </Link>
             <Link href="#katalog" onClick={() => setMobileMenuOpen(false)} className="py-1">
               {t.nav.treats}
