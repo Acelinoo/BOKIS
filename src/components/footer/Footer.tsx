@@ -114,7 +114,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://www.google.com/search?hl=id-ID&gl=id&q=Dapurnya+via+Jl.+Raya+Gading+Tutuka+Soreang&ludocid=3309489240890674678&lsig=AB86z5V3R4n_example#lrd=0x2e68ed00587c25d7:0x2deda361c80e8df6,3"
+                    href="https://www.google.com/search?hl=id-ID&gl=id&q=Bokis+Soreang&ludocid=9520101706232646466#lrd=0x2e68ed2eb16bc0a9:0x841e320fe9964b42,3"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-amber-300 hover:text-amber-200 transition-colors inline-flex items-center gap-1 font-medium"
@@ -148,12 +148,18 @@ export default function Footer() {
               {t.footer.outletTitle}
             </h4>
             <div className="space-y-2 text-xs text-gray-300">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <a
+                href="https://www.google.com/maps/place/Bokis+Soreang/@-7.0202874,107.5397411,12z/data=!4m12!1m2!2m1!1sbokis!3m8!1s0x2e68ed2eb16bc0a9:0x841e320fe9964b42!8m2!3d-7.020309!4d107.539479!9m1!1b1!15sCgVib2tpc1oHIgVib2tpc5IBCWNha2Vfc2hvcJoBJENoZERTVWhOTUc5blMwVkpRMEZuVFVOQk1rMTFUMTlSUlJBQuABAPoBBAgAEEM!16s%2Fg%2F11rwjm2dlr?entry=ttu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 hover:text-amber-300 transition-colors group"
+                title="Buka lokasi Bokis Soreang di Google Maps"
+              >
+                <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <span className="leading-snug">
                   {t.footer.address}
                 </span>
-              </div>
+              </a>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>{t.footer.hours}</span>

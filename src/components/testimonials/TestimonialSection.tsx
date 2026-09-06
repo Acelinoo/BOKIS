@@ -65,7 +65,7 @@ const TESTIMONIAL_ITEMS: TestimonialItem[] = [
 ];
 
 const GOOGLE_REVIEW_URL =
-  "https://www.google.com/search?hl=id-ID&gl=id&q=Dapurnya+via+Jl.+Raya+Gading+Tutuka+Soreang&ludocid=3309489240890674678&lsig=AB86z5V3R4n_example#lrd=0x2e68ed00587c25d7:0x2deda361c80e8df6,3";
+  "https://www.google.com/search?hl=id-ID&gl=id&q=Bokis+Soreang&ludocid=9520101706232646466#lrd=0x2e68ed2eb16bc0a9:0x841e320fe9964b42,3";
 
 export default function TestimonialSection() {
   const { language, t } = useLanguage();

@@ -30,7 +30,12 @@ export const metadata: Metadata = {
     "bolu chiffon",
   ],
   icons: {
-    icon: "/images/brand/logo-bokis.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
