@@ -19,7 +19,7 @@ const ALL_CREATIONS: CreationItem[] = [
     id: 1,
     titleId: "Keju Classic Taburan Panggang",
     titleEn: "Keju Classic Toasted Cheddar",
-    image: "/images/products/bolu-keju-classic.png",
+    image: "/images/products/bolu-keju-classic.jpg",
   },
   {
     id: 2,

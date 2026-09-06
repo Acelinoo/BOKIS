@@ -11,7 +11,7 @@ const Cake3DCanvas = dynamic(() => import("./Cake3DCanvas"), {
     <div className="w-full h-full flex flex-col items-center justify-center relative">
       <div className="relative w-64 h-64 sm:w-80 sm:h-80 animate-pulse">
         <Image
-          src="/images/products/bolu-keju-classic.png"
+          src="/images/products/bolu-keju-classic.jpg"
           alt="Bolu Keju Sabilulungan"
           fill
           className="object-contain drop-shadow-2xl"

@@ -29,7 +29,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subId: "Bolu Keju Lembut Khas Sabilulungan dengan Taburan Keju Panggang Di Atas",
     subEn: "Soft Authentic Cheese Chiffon with Savory Baked Cheddar Topping",
     price: "Rp 37.000",
-    image: "/images/products/bolu-keju-classic.png",
+    image: "/images/products/bolu-keju-classic.jpg",
   },
   {
     id: "slide-2",

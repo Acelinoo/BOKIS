@@ -38,7 +38,7 @@ export const PRODUCTS: ProductItem[] = [
     description:
       "Bolu keju lembut khas Sabilulungan Soreang dengan cita rasa keju otentik dan taburan keju cheddar panggang gurih di bagian atasnya.",
     ingredients: ["Keju Cheddar Pilihan", "Susu Murni Segar", "Telur Segar", "Tepung Terigu", "Mentega Asli"],
-    imageUrl: "/images/products/bolu-keju-classic.png",
+    imageUrl: "/images/products/bolu-keju-classic.jpg",
     isPopular: true,
   },
   {
