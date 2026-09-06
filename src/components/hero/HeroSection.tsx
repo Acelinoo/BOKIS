@@ -1,33 +1,95 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, ShoppingBag, ArrowLeft, ArrowRight, Sparkles, Heart, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search, ShoppingBag } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
-import { PRODUCTS } from "@/lib/products";
+import { PRODUCTS, ProductItem } from "@/lib/products";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
+
+interface VariantSlide {
+  id: string;
+  word: string;
+  subTitleId: string;
+  subTitleEn: string;
+  bgGradient: string;
+  themeColor: string;
+  image: string;
+  productId: string;
+}
+
+const VARIANTS: VariantSlide[] = [
+  {
+    id: "cheese",
+    word: "CHEESE",
+    subTitleId: "Resep otentik! Bolu keju lembut khas Soreang, wangi cheddar panggang gurih, lumer di setiap gigitan.",
+    subTitleEn: "Authentic recipe! Soft cheese chiffon from Soreang, rich baked cheddar aroma, melting in every bite.",
+    bgGradient: "from-[#FAD64E] via-[#F7CF43] to-[#F0C22E]",
+    themeColor: "#F7CF43",
+    image: "/images/products/hero-bolu-keju-hd-clean.png",
+    productId: "bolu-keju-classic",
+  },
+  {
+    id: "pandan",
+    word: "PANDAN",
+    subTitleId: "Aroma alami! Daun suji & pandan segar berpadu taburan keju panggang renyah berlimpah.",
+    subTitleEn: "Natural aroma! Fresh pandan & suji extract paired with abundant savory baked cheddar.",
+    bgGradient: "from-[#8FD48A] via-[#7ECB78] to-[#68BA61]",
+    themeColor: "#7ECB78",
+    image: "/images/products/bolu-pandan-classic.jpg",
+    productId: "bolu-pandan-classic",
+  },
+  {
+    id: "choco",
+    word: "CHOCO",
+    subTitleId: "Cita rasa mantap! Chiffon cokelat empuk dengan keju cheddar panggang dan choco chips lezat.",
+    subTitleEn: "Rich flavor! Fluffy chocolate chiffon with baked cheddar cheese and delicious choco chips.",
+    bgGradient: "from-[#CE9B73] via-[#BE895E] to-[#AB764B]",
+    themeColor: "#BE895E",
+    image: "/images/products/bolu-cokelat-classic.jpg",
+    productId: "bolu-cokelat-classic",
+  },
+  {
+    id: "matcha",
+    word: "MATCHA",
+    subTitleId: "Matcha otentik! Sponge cake lembut berpadu krim susu lumer dan bubuk matcha harum.",
+    subTitleEn: "Authentic matcha! Soft sponge cake with melting cream and aromatic premium matcha powder.",
+    bgGradient: "from-[#A4D67E] via-[#92C968] to-[#7BB84F]",
+    themeColor: "#92C968",
+    image: "/images/products/dessert-cube-matcha.jpg",
+    productId: "dessert-cube-matcha",
+  },
+];
 
 export default function HeroSection() {
   const { addToCart, setIsOpen } = useCart();
   const { language } = useLanguage();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const mainCakeRef = useRef<HTMLDivElement>(null);
-  const secondaryCakeRef = useRef<HTMLDivElement>(null);
-  const tertiaryCakeRef = useRef<HTMLDivElement>(null);
+  const cakeImageRef = useRef<HTMLDivElement>(null);
+  const wordRef = useRef<HTMLHeadingElement>(null);
 
-  // Ambil data produk Bolu Keju Classic
-  const classicProduct = PRODUCTS.find((p) => p.id === "bolu-keju-classic") || PRODUCTS[0];
+  const current = VARIANTS[currentIndex];
 
   const handleOrder = () => {
-    addToCart(classicProduct, 1);
+    const product = PRODUCTS.find((p) => p.id === current.productId) || PRODUCTS[0];
+    addToCart(product, 1);
   };
 
-  // GSAP Entrance & Floating Animation
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? VARIANTS.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === VARIANTS.length - 1 ? 0 : prev + 1));
+  };
+
+  // GSAP Initial Entrance & Continuous Floating Animation
   useGSAP(
     () => {
       const tl = gsap.timeline();
@@ -39,318 +101,207 @@ export default function HeroSection() {
         { opacity: 1, scale: 1, y: 0, duration: 0.85, ease: "power3.out" }
       )
         .fromTo(
-          ".hero-anim-left",
-          { opacity: 0, x: -25 },
-          { opacity: 1, x: 0, duration: 0.65, stagger: 0.1, ease: "power3.out" },
-          "-=0.4"
-        )
-        .fromTo(
-          mainCakeRef.current,
-          { opacity: 0, scale: 0.85, y: 35 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: "back.out(1.4)" },
+          wordRef.current,
+          { opacity: 0, scale: 0.9 },
+          { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" },
           "-=0.5"
         )
         .fromTo(
-          [secondaryCakeRef.current, tertiaryCakeRef.current],
-          { opacity: 0, scale: 0.7, y: 25 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.75, stagger: 0.1, ease: "back.out(1.3)" },
+          cakeImageRef.current,
+          { opacity: 0, scale: 0.85, y: 35 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: "back.out(1.4)" },
           "-=0.6"
         );
 
-      // 2. Floating Motion pada Kue Utama (Bolu Keju Classic Ultra HD)
-      if (mainCakeRef.current) {
-        gsap.to(mainCakeRef.current, {
+      // 2. Continuous Floating Loop pada Kue Tengah
+      if (cakeImageRef.current) {
+        gsap.to(cakeImageRef.current, {
           y: -14,
-          duration: 3.0,
+          duration: 3.2,
           ease: "sine.inOut",
           repeat: -1,
           yoyo: true,
         });
       }
-
-      // 3. Floating Motion pada Kue Pendukung Kanan
-      if (secondaryCakeRef.current) {
-        gsap.to(secondaryCakeRef.current, {
-          y: -10,
-          duration: 3.4,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-          delay: 0.3,
-        });
-      }
-
-      if (tertiaryCakeRef.current) {
-        gsap.to(tertiaryCakeRef.current, {
-          y: -8,
-          duration: 3.8,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-          delay: 0.6,
-        });
-      }
-
-      // 4. Floating Berry
-      gsap.to(".floating-strawberry", {
-        y: -6,
-        rotation: 6,
-        duration: 2.6,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
     },
     { scope: containerRef }
+  );
+
+  // Smooth Crossfade when Switching Variants
+  useGSAP(
+    () => {
+      if (cakeImageRef.current && wordRef.current) {
+        gsap.fromTo(
+          cakeImageRef.current,
+          { scale: 0.94, opacity: 0.8 },
+          { scale: 1, opacity: 1, duration: 0.4, ease: "power2.out" }
+        );
+        gsap.fromTo(
+          wordRef.current,
+          { y: 8, opacity: 0.6 },
+          { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }
+        );
+      }
+    },
+    { dependencies: [currentIndex], scope: containerRef }
   );
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="pt-6 sm:pt-10 pb-10 sm:pb-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full select-none"
+      className="pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-12 px-3 sm:px-6 lg:px-8 max-w-[1180px] mx-auto w-full select-none"
     >
-      {/* CARD UTAMA (Persis seperti Gambar Referensi Cream Ice Cream) */}
+      {/* Outer Card: 100% Identik dengan Gambar Referensi (Warna Kuning Keju Bokis) */}
       <div
         ref={cardRef}
-        className="relative rounded-[2.25rem] sm:rounded-[3rem] bg-[#E64415] overflow-hidden shadow-2xl border border-white/10 flex flex-col justify-between min-h-[560px] sm:min-h-[640px] md:min-h-[680px]"
+        className={`relative rounded-[2rem] sm:rounded-[2.75rem] bg-gradient-to-br ${current.bgGradient} p-5 sm:p-8 md:p-10 shadow-2xl border border-white/20 flex flex-col justify-between min-h-[520px] sm:min-h-[580px] md:min-h-[640px] lg:min-h-[680px] overflow-hidden transition-colors duration-700`}
       >
-        {/* --- 1. TOP BAR NAVBAR DI DALAM CARD --- */}
-        <div className="relative z-30 pt-6 sm:pt-8 px-6 sm:px-10 md:px-12 flex items-center justify-between">
-          
-          {/* Logo Brand Kiri: Bokis dengan ikon manis */}
-          <Link href="/" className="flex items-center gap-1.5 text-white font-heading font-black text-2xl sm:text-[28px] tracking-tight group">
+        {/* Subtle Ambient Radial Highlight */}
+        <div className="absolute top-0 right-1/4 w-[480px] h-[480px] rounded-full bg-white/15 blur-3xl pointer-events-none" />
+
+        {/* --- 1. TOP BAR HEADER DI DALAM CARD (PERSIS REFERENSI) --- */}
+        <div className="relative z-30 flex items-center justify-between">
+          {/* Logo Bokis Kiri (Seperti Cream di Referensi) */}
+          <Link href="/" className="flex items-center gap-1 text-white font-heading font-black text-xl sm:text-2xl tracking-tight group">
             <span>Bokis</span>
-            <span className="text-amber-200 text-xs mt-1">🧀</span>
+            <span className="text-amber-100 text-xs">🧀</span>
           </Link>
 
-          {/* Floating White Capsule Pill Menu Tengah (Persis Referensi) */}
-          <nav className="hidden md:flex items-center gap-6 bg-white px-7 py-2.5 rounded-full shadow-md text-xs font-heading font-black text-[#291E16]">
-            <Link href="#katalog" className="text-[#E64415] hover:opacity-80 transition-opacity">
-              {language === "id" ? "Varian" : "Flavors"}
+          {/* Floating Capsule Pill Menu Tengah (Persis Referensi) */}
+          <nav className="hidden md:flex items-center gap-7 bg-white/35 backdrop-blur-md px-8 py-2 rounded-full border border-white/30 text-xs font-heading font-black text-[#291E16]">
+            <Link href="#hero" className="text-[#291E16] hover:opacity-75 transition-opacity">
+              Home
             </Link>
-            <Link href="#why-us" className="text-[#594B42] hover:text-[#E64415] transition-colors">
-              {language === "id" ? "Tentang" : "About"}
+            <Link href="#katalog" className="text-[#291E16]/85 hover:text-[#291E16] transition-colors">
+              Flavors
             </Link>
-            <Link href="#katalog" className="text-[#594B42] hover:text-[#E64415] transition-colors">
-              {language === "id" ? "Minuman" : "Beverages"}
+            <Link href="#why-us" className="text-[#291E16]/85 hover:text-[#291E16] transition-colors">
+              About
             </Link>
-            <Link href="#kontak" className="text-[#594B42] hover:text-[#E64415] transition-colors">
-              {language === "id" ? "Kontak" : "Contact"}
+            <Link href="#kontak" className="text-[#291E16]/85 hover:text-[#291E16] transition-colors">
+              Contact
             </Link>
           </nav>
 
-          {/* Icon Kanan: Telepon / Kontak & Keranjang Belanja */}
-          <div className="flex items-center gap-3 text-white">
-            <Link
-              href="#kontak"
-              className="p-2 rounded-full hover:bg-white/20 transition-colors text-white"
-              aria-label="Kontak"
+          {/* Icon Search & Cart Kanan (Persis Referensi) */}
+          <div className="flex items-center gap-2 sm:gap-3 text-white">
+            <button
+              onClick={() => {
+                const target = document.getElementById("katalog");
+                if (target) target.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="p-2 rounded-full hover:bg-white/20 transition-colors text-white cursor-pointer"
+              aria-label="Cari Menu"
+              title="Cari Menu"
             >
-              <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-            </Link>
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+            </button>
             <button
               onClick={() => setIsOpen(true)}
-              className="p-2 rounded-full hover:bg-white/20 transition-colors text-white relative cursor-pointer"
-              aria-label="Keranjang"
+              className="p-2 rounded-full hover:bg-white/20 transition-colors text-white cursor-pointer"
+              aria-label="Keranjang Belanja"
+              title="Keranjang Belanja"
             >
-              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
+              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
             </button>
           </div>
         </div>
 
-        {/* 3 Floating Thin Badges di Kanan Atas (Persis Gambar Referensi) */}
-        <div className="hidden lg:flex items-center gap-2.5 absolute top-20 right-12 z-20 pointer-events-none">
-          <div className="w-7 h-7 rounded-full border border-white/40 flex items-center justify-center text-white/80">
-            <Sparkles className="w-3.5 h-3.5" />
-          </div>
-          <div className="w-7 h-7 rounded-full border border-white/40 flex items-center justify-center text-white/80">
-            <Heart className="w-3.5 h-3.5" />
-          </div>
-          <div className="w-7 h-7 rounded-full border border-white/40 flex items-center justify-center text-white/80">
-            <ShieldCheck className="w-3.5 h-3.5" />
-          </div>
-        </div>
-
-        {/* --- 2. MAIN BODY AREA: TEKS KIRI & PRODUK SHOWCASE KANAN --- */}
-        <div className="relative z-20 px-6 sm:px-10 md:px-12 pt-6 sm:pt-10 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center flex-1">
+        {/* --- 2. CENTER AREA: TEKS RAKSASA PUTIH DI BELAKANG & KUE HD DI DEPAN (PERSIS REFERENSI) --- */}
+        <div className="relative z-10 flex-1 flex items-center justify-center my-4 sm:my-6 md:my-8">
           
-          {/* Sisi Kiri: Headline & CTA Button (Span 5) */}
-          <div className="lg:col-span-5 text-left space-y-3 sm:space-y-5 pb-8 sm:pb-16 z-20">
-            <h1 className="hero-anim-left font-heading font-black text-4xl sm:text-6xl md:text-7xl lg:text-[76px] leading-[0.98] text-white tracking-tight drop-shadow-xs">
-              Delicious <br />
-              <span className="text-white">Cheese Chiffon</span>
-            </h1>
+          {/* TEKS RAKSASA PUTIH DI LAYER BELAKANG (Persis Kata LEMON di Gambar Referensi) */}
+          <h2
+            ref={wordRef}
+            className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-heading font-black text-white uppercase tracking-[0.16em] sm:tracking-[0.20em] md:tracking-[0.22em] text-[19vw] sm:text-[130px] md:text-[180px] lg:text-[230px] leading-none select-none drop-shadow-xs z-10 pointer-events-none"
+          >
+            {current.word}
+          </h2>
 
-            <p className="hero-anim-left text-xs sm:text-sm md:text-[15px] font-heading font-medium text-white/95 max-w-sm leading-relaxed tracking-wide">
-              {language === "id"
-                ? "Bolu keju lembut khas Soreang dengan cita rasa keju cheddar otentik panggang berlimpah."
-                : "Amazing cheese chiffon made with the finest Soreang ingredients."}
-            </p>
-
-            <div className="hero-anim-left pt-2">
-              <button
-                onClick={handleOrder}
-                className="inline-flex items-center justify-center px-7 sm:px-9 py-3 sm:py-3.5 rounded-full bg-white text-[#291E16] hover:bg-[#291E16] hover:text-white font-heading font-black text-xs sm:text-sm shadow-md hover:shadow-xl transition-all duration-200 cursor-pointer border border-white/40"
-              >
-                {language === "id" ? "Pesan Sekarang" : "Order Now"}
-              </button>
-            </div>
-          </div>
-
-          {/* Sisi Kanan: 3 Objek Produk Bertingkat (Span 7) */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[300px] sm:min-h-[380px] md:min-h-[440px] z-20">
+          {/* OBJEK KUE UTAMA DI LAYER DEPAN (Persis Cup Lemon di Gambar Referensi) */}
+          <div className="relative z-20 flex flex-col items-center justify-center">
             
-            {/* 1. PRODUK UTAMA (Tengah, Paling Besar, Menembus Garis Ombak) - Bolu Keju Classic Ultra HD */}
+            {/* Foto Bolu Keju HD Melayang di Depan Teks */}
             <div
-              ref={mainCakeRef}
+              ref={cakeImageRef}
               onClick={handleOrder}
-              className="relative z-30 w-64 h-64 sm:w-84 sm:h-84 md:w-96 md:h-96 lg:w-[410px] lg:h-[410px] cursor-pointer hover:scale-[1.03] transition-transform duration-300"
-              title={language === "id" ? "Bolu Keju Classic Ultra HD" : "Cheese Chiffon Classic Ultra HD"}
+              className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[440px] lg:h-[440px] max-h-[46vh] cursor-pointer hover:scale-[1.03] transition-transform duration-300 flex items-center justify-center"
+              title={language === "id" ? "Klik untuk menambah ke keranjang!" : "Click to add to cart!"}
             >
-              <Image
-                src="/images/products/hero-bolu-keju-hd-clean.png"
-                alt="Bolu Keju Classic Ultra HD Bokis Soreang"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 440px"
-                className="object-contain drop-shadow-2xl select-none"
-              />
+              {current.id === "cheese" ? (
+                <Image
+                  src="/images/products/hero-bolu-keju-hd-clean.png"
+                  alt="Bolu Keju Classic Ultra HD Bokis Soreang"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 440px"
+                  className="object-contain drop-shadow-2xl select-none"
+                />
+              ) : (
+                <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/40 shadow-2xl">
+                  <Image
+                    src={current.image}
+                    alt={current.word}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 360px"
+                    className="object-cover select-none"
+                  />
+                </div>
+              )}
             </div>
 
-            {/* 2. PRODUK KEDUA (Kanan Tengah, Sedang) - Bolu Keju Double / Panggang Emas (Persis Cup Kuning) */}
-            <div
-              ref={secondaryCakeRef}
-              className="absolute right-3 sm:right-6 md:right-8 top-[14%] z-20 hidden sm:block pointer-events-none"
-            >
-              <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 drop-shadow-xl">
-                <Image
-                  src="/images/products/bolu-keju-double.jpg"
-                  alt="Bolu Keju Double"
-                  fill
-                  sizes="220px"
-                  className="object-contain rounded-full border-4 border-white/25"
-                />
-              </div>
-            </div>
+            {/* Bayangan Jatuh Realistis di Bawah Kue (Radial Gradient Murni - Bebas Kotak Hitam) */}
+            <div className="w-48 sm:w-64 md:w-80 h-5 sm:h-6 -mt-3 sm:-mt-4 rounded-[50%] bg-black/15 blur-xs pointer-events-none" />
+          </div>
 
-            {/* 3. PRODUK KETIGA (Kanan Jauh, Kecil) - Dessert Cube Matcha (Persis Cup Hijau) */}
-            <div
-              ref={tertiaryCakeRef}
-              className="absolute right-0 top-[38%] z-10 hidden md:block pointer-events-none"
-            >
-              <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 drop-shadow-lg opacity-90">
-                <Image
-                  src="/images/products/dessert-cube-matcha.jpg"
-                  alt="Dessert Cube Matcha"
-                  fill
-                  sizes="130px"
-                  className="object-contain rounded-2xl border-2 border-white/30"
-                />
-              </div>
-            </div>
-
-            {/* Strawberry Kecil Mengambang di dekat Kue Utama (Persis Gambar Referensi) */}
-            <div className="floating-strawberry absolute left-[12%] sm:left-[18%] bottom-[15%] z-40 hidden xs:block">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 drop-shadow-md">
-                <Image
-                  src="/images/products/dessert-cube-strawberry.jpg"
-                  alt="Strawberry"
-                  fill
-                  sizes="40px"
-                  className="object-cover rounded-full border-2 border-white shadow-xs"
-                />
-              </div>
-            </div>
+          {/* Aksen Mikro Melengkung di Samping Kue (Persis Lemon Curl di Gambar Referensi) */}
+          <div className="absolute right-[14%] sm:right-[20%] md:right-[24%] bottom-[20%] z-25 hidden sm:block pointer-events-none">
+            <span className="text-2xl sm:text-3xl transform rotate-45 inline-block opacity-90 drop-shadow-xs">
+              🧀
+            </span>
           </div>
         </div>
 
-        {/* --- 3. PEMBATAS GELOMBANG LENGKUNG ORGANIK & FOOTER KREM DI DALAM CARD --- */}
-        <div className="relative z-10 w-full mt-auto">
+        {/* --- 3. BOTTOM BAR DI DALAM CARD (PERSIS REFERENSI) --- */}
+        <div className="relative z-30 flex items-end justify-between gap-4 pt-2">
           
-          {/* Lengkungan Ombak SVG Krem (Persis Garis Gelombang Gambar Referensi) */}
-          <div className="w-full overflow-hidden leading-none -mb-1">
-            <svg
-              className="w-full h-16 sm:h-24 md:h-28 block"
-              viewBox="0 0 1200 180"
-              preserveAspectRatio="none"
+          {/* Sisi Kiri Bawah: Deskripsi 2 Baris Minimalis (Persis Referensi) */}
+          <div className="max-w-[200px] sm:max-w-xs md:max-w-sm text-left">
+            <p className="text-[11px] sm:text-xs md:text-[13px] text-[#291E16]/80 font-heading font-semibold leading-relaxed tracking-normal">
+              {language === "id" ? current.subTitleId : current.subTitleEn}
+            </p>
+          </div>
+
+          {/* Tengah Bawah: Tombol Kapsul Hitam Pekat "Order" (Persis Referensi) */}
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-0">
+            <button
+              onClick={handleOrder}
+              className="px-8 sm:px-11 py-2.5 sm:py-3 rounded-full bg-[#18120E] text-white hover:bg-black font-heading font-black text-xs sm:text-sm tracking-wide shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
             >
-              <path
-                d="M 0,110 C 260,60 420,160 680,140 C 940,120 1060,50 1200,95 L 1200,180 L 0,180 Z"
-                fill="#FFFDF7"
-              />
-            </svg>
+              Order
+            </button>
           </div>
 
-          {/* Area Krem di Bawah Gelombang (Persis Gambar Referensi) */}
-          <div className="bg-[#FFFDF7] px-6 sm:px-10 md:px-12 pb-6 pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
-            
-            {/* Kiri: Avatar & Text Social Proof */}
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#F58A42]/20 border border-[#F58A42]/40 flex items-center justify-center text-xs font-black text-[#291E16]">
-                BK
-              </div>
-              <div className="text-left">
-                <p className="font-heading font-black text-[11px] sm:text-xs text-[#291E16] leading-none">
-                  {language === "id" ? "Lebih dari 5.000+ Pelanggan Puas" : "With over 5,000+ happy buyers"}
-                </p>
-                <Link
-                  href="#katalog"
-                  className="text-[10px] font-heading font-bold text-[#E64415] hover:underline mt-1 inline-flex items-center gap-1 leading-none"
-                >
-                  <span>{language === "id" ? "Cerita rasa keluarga Soreang" : "Meet our bakery story"}</span>
-                  <span>→</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Kanan: 2 Tombol Panah Bulat & 3 Dots Minimalis */}
-            <div className="flex items-center gap-5 sm:gap-6">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    const target = document.getElementById("katalog");
-                    if (target) target.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-[#291E16] hover:border-gray-400 shadow-2xs transition-colors cursor-pointer"
-                  aria-label="Kiri"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  onClick={() => {
-                    const target = document.getElementById("katalog");
-                    if (target) target.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-[#291E16] hover:border-gray-400 shadow-2xs transition-colors cursor-pointer"
-                  aria-label="Kanan"
-                >
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-              {/* 3 Dots Minimalis */}
-              <div className="flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#291E16]" />
-                <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
-                <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Partikel Strawberry di Luar Card (Persis Gambar Referensi!) */}
-      <div className="relative w-full max-w-6xl mx-auto h-0 pointer-events-none hidden md:block">
-        <div className="floating-strawberry absolute right-[38%] -top-4 z-40">
-          <div className="relative w-8 h-8 rounded-full overflow-hidden border border-amber-200 shadow-md">
-            <Image
-              src="/images/products/dessert-cube-strawberry.jpg"
-              alt="Fresh Treat"
-              fill
-              sizes="32px"
-              className="object-cover"
-            />
+          {/* Sisi Kanan Bawah: 2 Tombol Panah Lingkaran Outline (Persis Referensi) */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePrev}
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/70 hover:border-white hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
+              aria-label="Varian Sebelumnya"
+              title="Varian Sebelumnya"
+            >
+              <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2]" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/70 hover:border-white hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer"
+              aria-label="Varian Berikutnya"
+              title="Varian Berikutnya"
+            >
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2]" />
+            </button>
           </div>
         </div>
       </div>
