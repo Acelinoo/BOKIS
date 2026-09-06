@@ -168,51 +168,55 @@ export default function ProductOverviewModal({
               </div>
 
               {/* Quantity Counter & Actions */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
-                {/* Counter */}
-                <div className="flex items-center justify-between border border-[#EADBCC] bg-[#FAF5EB] rounded-xl p-1 w-full sm:w-28 shrink-0">
+              <div className="pt-2 space-y-2.5">
+                {/* Counter + Tambah ke Keranjang */}
+                <div className="flex flex-col sm:flex-row items-center gap-2.5">
+                  <div className="flex items-center justify-between border border-[#EADBCC] bg-[#FAF5EB] rounded-xl p-1 w-full sm:w-28 shrink-0">
+                    <button
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-[#291E16] hover:bg-[#F58A42] hover:text-white transition-colors cursor-pointer shadow-2xs"
+                      aria-label="Kurangi jumlah"
+                    >
+                      <Minus className="w-3.5 h-3.5" />
+                    </button>
+                    <span className="font-heading font-black text-sm w-6 text-center text-[#291E16]">
+                      {quantity}
+                    </span>
+                    <button
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-[#291E16] hover:bg-[#F58A42] hover:text-white transition-colors cursor-pointer shadow-2xs"
+                      aria-label="Tambah jumlah"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  {/* Tombol Add to Cart */}
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-[#291E16] hover:bg-[#F58A42] hover:text-white transition-colors cursor-pointer"
+                    onClick={handleAddToCart}
+                    className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-[#291E16] hover:bg-[#F58A42] text-white font-heading font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all duration-200 cursor-pointer active:scale-98"
                   >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="font-heading font-black text-sm w-6 text-center text-[#291E16]">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-[#291E16] hover:bg-[#F58A42] hover:text-white transition-colors cursor-pointer"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
+                    {isAdded ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-400" />
+                        <span>{language === "id" ? "Berhasil Masuk!" : "Added to Cart!"}</span>
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag className="w-4 h-4" />
+                        <span>{t.modal.addToCart}</span>
+                      </>
+                    )}
                   </button>
                 </div>
 
-                {/* Tombol Add to Cart */}
-                <button
-                  onClick={handleAddToCart}
-                  className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-[#291E16] hover:bg-[#F58A42] text-white font-heading font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
-                >
-                  {isAdded ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-400" />
-                      <span>{language === "id" ? "Berhasil Masuk!" : "Added to Cart!"}</span>
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingBag className="w-4 h-4" />
-                      <span>{t.modal.addToCart}</span>
-                    </>
-                  )}
-                </button>
-
-                {/* Tombol WA Langsung */}
+                {/* Tombol Pesan via WhatsApp Langsung dengan Teks & Ikon Terbaca Jelas */}
                 <button
                   onClick={handleDirectWA}
-                  className="w-full sm:w-auto p-3 rounded-xl bg-[#FAF5EB] hover:bg-[#22C55E] text-[#291E16] hover:text-white border border-[#EADBCC] transition-colors cursor-pointer"
-                  title={t.modal.orderWhatsApp}
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#22C55E]/10 hover:bg-[#22C55E] text-[#15803d] hover:text-white border border-[#22C55E]/30 font-heading font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-2xs group"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                  <span>{t.modal.orderWhatsApp}</span>
                 </button>
               </div>
             </div>
