@@ -107,16 +107,16 @@ export default function HeroSection() {
         {/* Capsule Pill Menu Tengah Tema Bokis */}
         <nav className="hidden md:flex items-center gap-8 bg-white/60 backdrop-blur-md px-9 py-2.5 rounded-full border border-white/40 shadow-xs text-xs sm:text-[13px] font-heading font-black text-[#291E16]">
           <Link href="#hero" className="text-[#291E16] hover:opacity-75 transition-opacity">
-            Home
+            {t.nav.home}
           </Link>
           <Link href="#katalog" className="text-[#291E16]/80 hover:text-[#291E16] transition-colors">
-            {language === "id" ? "Varian" : "Flavors"}
+            {t.nav.treats}
           </Link>
           <Link href="#why-us" className="text-[#291E16]/80 hover:text-[#291E16] transition-colors">
-            {language === "id" ? "Tentang" : "About"}
+            {t.nav.about}
           </Link>
-          <Link href="#kontak" className="text-[#291E16]/80 hover:text-[#291E16] transition-colors">
-            {language === "id" ? "Kontak" : "Contact"}
+          <Link href="#creations" className="text-[#291E16]/80 hover:text-[#291E16] transition-colors">
+            {t.nav.creations}
           </Link>
         </nav>
 
