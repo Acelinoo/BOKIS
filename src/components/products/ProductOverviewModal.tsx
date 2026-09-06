@@ -60,7 +60,10 @@ export default function ProductOverviewModal({
   };
 
   const handleDirectWA = () => {
-    const message = `Halo Admin Bokis Soreang, saya tertarik memesan:%0A• ${quantity}x ${product.name.replace(/-/g, " ")} (Total Rp ${(product.price * quantity).toLocaleString("id-ID")})%0AMohon info ketersediaan stok fresh hari ini, terima kasih!`;
+    const message =
+      language === "id"
+        ? `Halo Admin Bokis Soreang, saya tertarik memesan:%0A• ${quantity}x ${product.name.replace(/-/g, " ")} (Total Rp ${(product.price * quantity).toLocaleString("id-ID")})%0AMohon info ketersediaan stok fresh hari ini, terima kasih!`
+        : `Hello Admin Bokis Soreang, I would like to order:%0A• ${quantity}x ${product.name.replace(/-/g, " ")} (Total Rp ${(product.price * quantity).toLocaleString("id-ID")})%0APlease let me know about today's fresh stock availability, thank you!`;
     const waUrl = `https://wa.me/6281234567890?text=${message}`;
     window.open(waUrl, "_blank");
   };

@@ -15,6 +15,7 @@ export interface I18nContent {
     line1: string;
     line2: string;
     orderNow: string;
+    viewMenu: string;
     from: string;
     satisfiedCount: string;
     satisfiedLabel: string;
@@ -123,6 +124,26 @@ export interface I18nContent {
     submitWa: string;
     submittingWa: string;
     footerNote: string;
+    clear: string;
+    remove: string;
+  };
+  footer: {
+    brandDesc: string;
+    quickNav: string;
+    navHome: string;
+    navCategories: string;
+    navMenu: string;
+    navWhyUs: string;
+    navPromo: string;
+    navTestimonials: string;
+    navFaq: string;
+    featuredTitle: string;
+    outletTitle: string;
+    address: string;
+    hours: string;
+    whatsappService: string;
+    copyright: string;
+    creditText: string;
   };
 }
 
@@ -142,6 +163,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
       line1: "DIPANGGANG SEGAR,",
       line2: "SEMPURNA MANISNYA",
       orderNow: "Pesan Sekarang",
+      viewMenu: "Lihat Menu",
       from: "Mulai",
       satisfiedCount: "5000+",
       satisfiedLabel: "Pesanan",
@@ -268,6 +290,26 @@ export const DICTIONARY: Record<Language, I18nContent> = {
       submitWa: "Kirim Pesanan ke WhatsApp",
       submittingWa: "Menghubungkan ke WhatsApp...",
       footerNote: "Pesanan Anda akan diproses langsung oleh staf dapur Bokis Soreang.",
+      clear: "Kosongkan",
+      remove: "Hapus",
+    },
+    footer: {
+      brandDesc: "Menghadirkan kelezatan bolu keju lembut dan aneka chiramisu khas Soreang, Kabupaten Bandung. Dipanggang segar setiap hari dengan bahan-bahan pilihan bermutu tinggi.",
+      quickNav: "Navigasi Cepat",
+      navHome: "Beranda",
+      navCategories: "Kategori Menu",
+      navMenu: "Daftar Menu",
+      navWhyUs: "Keunggulan",
+      navPromo: "Penawaran Spesial",
+      navTestimonials: "Apresiasi Pelanggan",
+      navFaq: "Pertanyaan Umum",
+      featuredTitle: "Menu Pilihan",
+      outletTitle: "Dapur & Outlet Soreang",
+      address: "Jl. Raya Soreang - Banjaran No. 88, Soreang, Kabupaten Bandung, Jawa Barat 40911",
+      hours: "Setiap Hari: 07.00 - 21.00 WIB",
+      whatsappService: "0812-3456-7890 (Layanan WhatsApp)",
+      copyright: "Hak Cipta Dilindungi.",
+      creditText: "Website ini buatan",
     },
   },
   en: {
@@ -285,6 +327,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
       line1: "FRESHLY BAKED,",
       line2: "AUTHENTIC TASTE",
       orderNow: "Order Now",
+      viewMenu: "View Menu",
       from: "From",
       satisfiedCount: "5000+",
       satisfiedLabel: "Orders",
@@ -411,6 +454,26 @@ export const DICTIONARY: Record<Language, I18nContent> = {
       submitWa: "Send Order to WhatsApp",
       submittingWa: "Redirecting to WhatsApp...",
       footerNote: "Your order is prepared fresh at our Soreang kitchen.",
+      clear: "Clear Cart",
+      remove: "Remove",
+    },
+    footer: {
+      brandDesc: "Bringing you the authentic taste of soft cheese chiffon and artisan chiramisu from Soreang, Bandung Regency. Freshly baked every day with premium quality ingredients.",
+      quickNav: "Quick Navigation",
+      navHome: "Home",
+      navCategories: "Menu Categories",
+      navMenu: "Treats Catalog",
+      navWhyUs: "Why Choose Us",
+      navPromo: "Special Offers",
+      navTestimonials: "Customer Reviews",
+      navFaq: "FAQ",
+      featuredTitle: "Featured Treats",
+      outletTitle: "Bakery & Soreang Outlet",
+      address: "Jl. Raya Soreang - Banjaran No. 88, Soreang, Bandung Regency, West Java 40911",
+      hours: "Daily: 07:00 AM - 09:00 PM WIB",
+      whatsappService: "0812-3456-7890 (WhatsApp Service)",
+      copyright: "All Rights Reserved.",
+      creditText: "Website crafted with passion by",
     },
   },
 };

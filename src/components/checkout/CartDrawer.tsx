@@ -9,7 +9,7 @@ import confetti from "canvas-confetti";
 
 export default function CartDrawer() {
   const { items, isOpen, setIsOpen, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -60,13 +60,17 @@ export default function CartDrawer() {
 
     // Format Pesan WhatsApp Terstruktur Formal Ala Toko Kue Profesional
     const itemDetails = items
-      .map(
-        (item, index) =>
-          `${index + 1}. *${item.product.name}*%0A   Jumlah: ${item.quantity} box x Rp ${item.product.price.toLocaleString("id-ID")}%0A   Subtotal: Rp ${(item.product.price * item.quantity).toLocaleString("id-ID")}`
+      .map((item, index) =>
+        language === "id"
+          ? `${index + 1}. *${item.product.name}*%0A   Jumlah: ${item.quantity} box x Rp ${item.product.price.toLocaleString("id-ID")}%0A   Subtotal: Rp ${(item.product.price * item.quantity).toLocaleString("id-ID")}`
+          : `${index + 1}. *${item.product.name}*%0A   Qty: ${item.quantity} box x Rp ${item.product.price.toLocaleString("id-ID")}%0A   Subtotal: Rp ${(item.product.price * item.quantity).toLocaleString("id-ID")}`
       )
       .join("%0A%0A");
 
-    const message = `Halo Admin Bokis (Bolu Kiju Soreang)! 👋%0A%0ASaya ingin memesan bolu fresh oven dengan rincian berikut:%0A%0A*--- RINCIAN PESANAN ---*%0A${itemDetails}%0A%0A*--- TOTAL ESTIMASI ---*%0A*Total Produk: Rp ${totalPrice.toLocaleString("id-ID")}*%0A*(Belum termasuk ongkir kurir instant/sameday)*%0A%0A*--- DATA PENERIMA ---*%0A• *Nama:* ${encodeURIComponent(name)}%0A• *No. WhatsApp:* ${encodeURIComponent(phone)}%0A• *Wilayah:* ${encodeURIComponent(kecamatan)} (Kab. Bandung)%0A• *Alamat Lengkap:* ${encodeURIComponent(address)}%0A• *Catatan Tambahan:* ${encodeURIComponent(notes || "-")}%0A%0AMohon konfirmasi ketersediaan stok fresh dan estimasi waktu pengirimannya ya Admin, hatur nuhun! 🙏`;
+    const message =
+      language === "id"
+        ? `Halo Admin Bokis (Bolu Kiju Soreang)! 👋%0A%0ASaya ingin memesan bolu fresh oven dengan rincian berikut:%0A%0A*--- RINCIAN PESANAN ---*%0A${itemDetails}%0A%0A*--- TOTAL ESTIMASI ---*%0A*Total Produk: Rp ${totalPrice.toLocaleString("id-ID")}*%0A*(Belum termasuk ongkir kurir instant/sameday)*%0A%0A*--- DATA PENERIMA ---*%0A• *Nama:* ${encodeURIComponent(name)}%0A• *No. WhatsApp:* ${encodeURIComponent(phone)}%0A• *Wilayah:* ${encodeURIComponent(kecamatan)} (Kab. Bandung)%0A• *Alamat Lengkap:* ${encodeURIComponent(address)}%0A• *Catatan Tambahan:* ${encodeURIComponent(notes || "-")}%0A%0AMohon konfirmasi ketersediaan stok fresh dan estimasi waktu pengirimannya ya Admin, hatur nuhun! 🙏`
+        : `Hello Admin Bokis (Bolu Kiju Soreang)! 👋%0A%0AI would like to place an order with the following details:%0A%0A*--- ORDER DETAILS ---*%0A${itemDetails}%0A%0A*--- TOTAL ESTIMATE ---*%0A*Total Products: Rp ${totalPrice.toLocaleString("id-ID")}*%0A*(Excludes instant/sameday courier delivery fee)*%0A%0A*--- RECIPIENT INFORMATION ---*%0A• *Name:* ${encodeURIComponent(name)}%0A• *WhatsApp:* ${encodeURIComponent(phone)}%0A• *District:* ${encodeURIComponent(kecamatan)} (Bandung Regency)%0A• *Delivery Address:* ${encodeURIComponent(address)}%0A• *Notes:* ${encodeURIComponent(notes || "-")}%0A%0APlease confirm fresh stock availability and delivery schedule. Thank you! 🙏`;
 
     const waAdmin = process.env.NEXT_PUBLIC_WA_ADMIN || "6281234567890";
     const waUrl = `https://wa.me/${waAdmin}?text=${message}`;
@@ -152,7 +156,7 @@ export default function CartDrawer() {
                       onClick={clearCart}
                       className="text-[10px] text-red-500 hover:underline font-bold cursor-pointer"
                     >
-                      Kosongkan
+                      {t.cart.clear}
                     </button>
                   </div>
 
@@ -200,7 +204,7 @@ export default function CartDrawer() {
                       <button
                         onClick={() => removeFromCart(item.product.id)}
                         className="text-gray-400 hover:text-red-500 p-1.5 transition-colors cursor-pointer"
-                        title="Hapus"
+                        title={t.cart.remove}
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowUpRight, Check, Eye } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
-import { PRODUCTS, ProductItem } from "@/lib/products";
+import { PRODUCTS, ProductItem, getLocalizedProduct } from "@/lib/products";
 import ProductOverviewModal, { ModalProduct } from "./ProductOverviewModal";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
@@ -20,7 +20,7 @@ export default function ProductCatalog({
   onCategoryChange,
 }: ProductCatalogProps) {
   const { addToCart } = useCart();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<string>(selectedCategory || "all");
   const [addedId, setAddedId] = useState<string | null>(null);
   const [overviewProduct, setOverviewProduct] = useState<ModalProduct | null>(null);
@@ -91,7 +91,8 @@ export default function ProductCatalog({
     }
   }, [activeTab]);
 
-  const handleOpenOverview = (item: ProductItem) => {
+  const handleOpenOverview = (rawItem: ProductItem) => {
+    const item = getLocalizedProduct(rawItem, language);
     setOverviewProduct({
       id: item.id,
       name: item.name,
@@ -151,7 +152,8 @@ export default function ProductCatalog({
         ref={gridRef}
         className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mt-8"
       >
-        {filteredItems.map((item) => {
+        {filteredItems.map((rawItem) => {
+          const item = getLocalizedProduct(rawItem, language);
           const isAdded = addedId === item.id;
 
           return (

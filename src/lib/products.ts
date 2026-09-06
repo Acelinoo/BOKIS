@@ -412,3 +412,112 @@ export const FAQS = [
       "Kami melayani pesanan untuk kebutuhan rapat, syukuran, arisan, dan acara keluarga. Untuk pemesanan dalam jumlah besar (di atas 15 kotak), disarankan melakukan konfirmasi 1–2 hari sebelumnya.",
   },
 ];
+
+export const PRODUCT_TRANSLATIONS_EN: Record<
+  string,
+  { name: string; category: string; description: string; ingredients: string[] }
+> = {
+  "bolu-keju-classic": {
+    name: "Classic Cheese",
+    category: "Cheese Chiffon",
+    description: "Authentic Soreang soft cheese chiffon cake with rich savory baked cheddar cheese topping on every slice.",
+    ingredients: ["Selected Cheddar Cheese", "Pure Fresh Milk", "Fresh Farm Eggs", "Wheat Flour", "Pure Butter"],
+  },
+  "bolu-keju-double": {
+    name: "Double Cheese",
+    category: "Cheese Chiffon",
+    description: "Special cheese chiffon with double indulgence: crispy baked cheddar on top plus rich savory cheese cubes inside the sponge.",
+    ingredients: ["Savory Diced Cheese", "Baked Cheddar Cheese", "Pure Fresh Milk", "Fresh Eggs", "Pure Butter"],
+  },
+  "bolu-keju-extra": {
+    name: "Extra Cheese",
+    category: "Cheese Chiffon",
+    description: "Super fluffy cheese chiffon crowned with mountains of freshly shredded savory cheddar cheese all over the surface.",
+    ingredients: ["Abundant Shredded Cheddar", "Selected Cheese", "Pure Fresh Milk", "Fresh Eggs", "Pure Butter"],
+  },
+  "bolu-pandan-classic": {
+    name: "Classic Pandan",
+    category: "Cheese Chiffon",
+    description: "Delicate pandan chiffon with natural suji & pandan extract aroma, topped with golden toasted cheddar cheese.",
+    ingredients: ["Natural Pandan & Suji Extract", "Toasted Cheddar Cheese", "Pure Fresh Milk", "Fresh Eggs", "Pure Butter"],
+  },
+  "bolu-pandan-double": {
+    name: "Double Pandan",
+    category: "Cheese Chiffon",
+    description: "Aromatic pandan chiffon with double delight: crispy baked cheddar topping and abundant savory cheese cubes baked inside.",
+    ingredients: ["Natural Pandan Extract", "Diced Cheese Cubes", "Toasted Cheddar Cheese", "Fresh Milk", "Fresh Eggs"],
+  },
+  "bolu-pandan-extra": {
+    name: "Extra Pandan",
+    category: "Cheese Chiffon",
+    description: "Fragrant soft pandan chiffon loaded with extra generous shredded cheddar cheese covering the entire cake.",
+    ingredients: ["Abundant Shredded Cheese", "Natural Pandan Extract", "Selected Cheddar", "Fresh Milk", "Fresh Eggs"],
+  },
+  "bolu-cokelat-classic": {
+    name: "Classic Chocolate",
+    category: "Cheese Chiffon",
+    description: "Fluffy chocolate chiffon with deep cocoa richness, topped with toasted cheddar cheese and crunchy choco chips.",
+    ingredients: ["Selected Cocoa", "Toasted Cheddar Cheese", "Fresh Dairy Milk", "Fresh Eggs", "Pure Butter"],
+  },
+  "bolu-red-velvet-classic": {
+    name: "Classic Red Velvet",
+    category: "Cheese Chiffon",
+    description: "Moist and tender red velvet cake with elegant vanilla-cocoa aroma, finished with savory toasted cheddar cheese.",
+    ingredients: ["Selected Red Velvet Batter", "Toasted Cheddar Cheese", "Fresh Milk", "Fresh Eggs", "Pure Butter"],
+  },
+  "dessert-cube-matcha": {
+    name: "Matcha Dessert Cube",
+    category: "Dessert Cube",
+    description: "Artisan dessert cube featuring soft sponge cake, melting sweet savory dairy cream, and premium Japanese matcha dust.",
+    ingredients: ["Premium Japanese Matcha", "Soft Sponge Cake", "Melting Sweet Cream", "Pure Dairy Milk"],
+  },
+  "dessert-cube-strawberry": {
+    name: "Strawberry Dessert Cube",
+    category: "Dessert Cube",
+    description: "Luscious dessert cube layered with tender sponge, melting cream cheese frosting, and luscious fresh strawberry compote.",
+    ingredients: ["Fresh Strawberry Compote", "Cream Cheese Frosting", "Vanilla Sponge Cake", "Pure Dairy Milk"],
+  },
+  "minuman-es-kopi-aren": {
+    name: "Palm Sugar Iced Coffee",
+    category: "Drinks & Coffee",
+    description: "Signature iced coffee blend with premium espresso, creamy fresh milk, and authentic Indonesian palm sugar.",
+    ingredients: ["Arabica Espresso Shot", "Fresh Cow Milk", "Organic Palm Sugar", "Purified Ice"],
+  },
+  "minuman-boba-cheese-brulee": {
+    name: "Boba Cheese Brulee",
+    category: "Drinks & Coffee",
+    description: "Chewy boba pearls paired with fresh milk, rich brown sugar, and a flame-torched savory cheese brulee crown.",
+    ingredients: ["Chewy Tapioca Boba", "Torched Cream Cheese", "Brown Sugar Glaze", "Fresh Milk"],
+  },
+  "minuman-saika-breeze": {
+    name: "Saika Breeze Mocktail",
+    category: "Drinks & Coffee",
+    description: "Refreshing citrus mocktail infused with crisp sparkling soda and cooling natural mint essence.",
+    ingredients: ["Citrus Juice Extract", "Sparkling Soda", "Fresh Mint Leaves", "Crushed Ice"],
+  },
+  "minuman-yakult-series": {
+    name: "Lychee Yakult Breeze",
+    category: "Drinks & Coffee",
+    description: "Sparkling probiotic Yakult infused with fragrant lychee fruit nectar, perfectly complementing your cheese cake.",
+    ingredients: ["Probiotic Yakult", "Fragrant Lychee Fruit", "Sparkling Water", "Ice Cubes"],
+  },
+  "minuman-matcha-float": {
+    name: "Matcha Float Ice Cream",
+    category: "Drinks & Coffee",
+    description: "Premium iced matcha green tea latte topped with a luxurious scoop of velvety artisanal vanilla ice cream.",
+    ingredients: ["Pure Matcha Powder", "Artisanal Vanilla Ice Cream", "Fresh Milk", "Ice"],
+  },
+};
+
+export function getLocalizedProduct(item: ProductItem, lang: "id" | "en"): ProductItem {
+  if (lang === "id") return item;
+  const trans = PRODUCT_TRANSLATIONS_EN[item.id];
+  if (!trans) return item;
+  return {
+    ...item,
+    name: trans.name,
+    category: trans.category,
+    description: trans.description,
+    ingredients: trans.ingredients,
+  };
+}

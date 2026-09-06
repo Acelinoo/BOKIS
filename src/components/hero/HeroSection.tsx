@@ -2,8 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight, Search, ShoppingBag } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { PRODUCTS } from "@/lib/products";
@@ -82,99 +81,10 @@ export default function HeroSection() {
     <section
       id="hero"
       ref={containerRef}
-      className={`w-full min-h-[100dvh] bg-gradient-to-b ${current.bgGradient} flex flex-col justify-between relative overflow-hidden select-none px-6 sm:px-12 md:px-16 pt-6 sm:pt-8 pb-8 sm:pb-10 transition-colors duration-700`}
+      className={`w-full min-h-[100dvh] bg-gradient-to-b ${current.bgGradient} flex flex-col justify-between relative overflow-hidden select-none px-6 sm:px-12 md:px-16 pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-10 transition-colors duration-700`}
     >
-      {/* Subtle Ambient Radial Highlight di Fullscreen */}
+      {/* Ambient Radial Highlight di Fullscreen */}
       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-white/15 blur-3xl pointer-events-none" />
-
-      {/* --- 1. TOP BAR NAVBAR FULLSCREEN (TEMA BOKIS RESMI) --- */}
-      <header className="relative z-30 w-full flex items-center justify-between">
-        
-        {/* Logo Bokis Resmi di Kiri */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="relative h-10 sm:h-12 w-28 sm:w-32 group-hover:scale-105 transition-transform duration-200">
-            <Image
-              src="/images/brand/logo-bokis.png"
-              alt="BOKIS - Bolu Kiju Soreang"
-              fill
-              priority
-              sizes="128px"
-              className="object-contain object-left drop-shadow-xs"
-            />
-          </div>
-        </Link>
-
-        {/* Capsule Pill Menu Tengah Tema Bokis */}
-        <nav className="hidden md:flex items-center gap-8 bg-white/60 backdrop-blur-md px-9 py-2.5 rounded-full border border-white/40 shadow-xs text-xs sm:text-[13px] font-heading font-black text-[#291E16]">
-          <Link href="#hero" className="text-[#291E16] hover:opacity-75 transition-opacity">
-            {t.nav.home}
-          </Link>
-          <Link href="#katalog" className="text-[#291E16]/80 hover:text-[#291E16] transition-colors">
-            {t.nav.treats}
-          </Link>
-          <Link href="#why-us" className="text-[#291E16]/80 hover:text-[#291E16] transition-colors">
-            {t.nav.about}
-          </Link>
-          <Link href="#creations" className="text-[#291E16]/80 hover:text-[#291E16] transition-colors">
-            {t.nav.creations}
-          </Link>
-        </nav>
-
-        {/* Action Kanan: Switcher ID/EN, Search & Cart Button */}
-        <div className="flex items-center gap-2.5 sm:gap-3.5">
-          {/* Switcher ID/EN */}
-          <div className="flex items-center bg-white/40 backdrop-blur-xs border border-white/30 rounded-xl p-0.5 text-xs font-heading font-black">
-            <button
-              onClick={() => setLanguage("id")}
-              className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
-                language === "id"
-                  ? "bg-white text-[#291E16] shadow-xs"
-                  : "text-[#291E16]/70 hover:text-[#291E16]"
-              }`}
-            >
-              ID
-            </button>
-            <button
-              onClick={() => setLanguage("en")}
-              className={`px-2 py-0.5 rounded-lg transition-all cursor-pointer ${
-                language === "en"
-                  ? "bg-white text-[#291E16] shadow-xs"
-                  : "text-[#291E16]/70 hover:text-[#291E16]"
-              }`}
-            >
-              EN
-            </button>
-          </div>
-
-          {/* Search Button */}
-          <button
-            onClick={() => {
-              const target = document.getElementById("katalog");
-              if (target) target.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="p-2 sm:p-2.5 rounded-full hover:bg-white/25 transition-colors text-[#291E16] cursor-pointer"
-            aria-label="Cari Menu"
-            title="Cari Menu"
-          >
-            <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
-          </button>
-
-          {/* Cart Button */}
-          <button
-            onClick={() => setIsOpen(true)}
-            className="relative p-2 sm:p-2.5 rounded-full hover:bg-white/25 transition-colors text-[#291E16] cursor-pointer"
-            aria-label="Keranjang Belanja"
-            title="Keranjang Belanja"
-          >
-            <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#EE6C20] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
-                {totalItems}
-              </span>
-            )}
-          </button>
-        </div>
-      </header>
 
       {/* --- 2. CENTER AREA: TEKS RAKSASA DI BELAKANG & KUE STATIS DI DEPAN --- */}
       <div className="relative z-10 flex-1 flex items-center justify-center w-full my-auto py-2 sm:py-4">
@@ -238,13 +148,16 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* Tengah Bawah: Tombol Kapsul Hitam Pekat "Order" */}
+        {/* Tengah Bawah: Tombol Kapsul Hitam Pekat "Lihat Menu" */}
         <div className="absolute left-1/2 -translate-x-1/2 bottom-8 sm:bottom-10">
           <button
-            onClick={handleOrder}
-            className="px-9 sm:px-12 py-2.5 sm:py-3 rounded-full bg-[#18120E] text-white hover:bg-black font-heading font-black text-xs sm:text-sm tracking-wider shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
+            onClick={() => {
+              const target = document.getElementById("katalog");
+              if (target) target.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="px-8 sm:px-11 py-2.5 sm:py-3 rounded-full bg-[#18120E] text-white hover:bg-black font-heading font-black text-xs sm:text-sm tracking-wider shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer inline-flex items-center gap-2 whitespace-nowrap"
           >
-            Order
+            <span>{t.hero.viewMenu}</span>
           </button>
         </div>
 

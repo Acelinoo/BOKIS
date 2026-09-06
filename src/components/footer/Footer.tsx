@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Clock, ArrowUpRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -24,6 +25,8 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function Footer() {
+  const { t, language } = useLanguage();
+
   return (
     <footer className="bg-[#231815] text-[#FFFDF7] pt-16 pb-12 border-t border-amber-900/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,7 +48,7 @@ export default function Footer() {
             </div>
 
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-sm">
-              Menghadirkan kelezatan bolu keju lembut dan aneka chiramisu khas Soreang, Kabupaten Bandung. Dipanggang segar setiap hari dengan bahan-bahan pilihan bermutu tinggi.
+              {t.footer.brandDesc}
             </p>
 
             <div className="flex items-center gap-3 pt-1">
@@ -73,42 +76,42 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              Navigasi Cepat
+              {t.footer.quickNav}
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
               <li>
                 <Link href="#hero" className="hover:text-amber-400 transition-colors">
-                  Beranda
+                  {t.footer.navHome}
                 </Link>
               </li>
               <li>
                 <Link href="#categories" className="hover:text-amber-400 transition-colors">
-                  Kategori Menu
+                  {t.footer.navCategories}
                 </Link>
               </li>
               <li>
                 <Link href="#katalog" className="hover:text-amber-400 transition-colors">
-                  Daftar Menu
+                  {t.footer.navMenu}
                 </Link>
               </li>
               <li>
                 <Link href="#why-us" className="hover:text-amber-400 transition-colors">
-                  Keunggulan
+                  {t.footer.navWhyUs}
                 </Link>
               </li>
               <li>
                 <Link href="#promo" className="hover:text-amber-400 transition-colors">
-                  Penawaran Spesial
+                  {t.footer.navPromo}
                 </Link>
               </li>
               <li>
                 <Link href="#testimoni" className="hover:text-amber-400 transition-colors">
-                  Apresiasi Pelanggan
+                  {t.footer.navTestimonials}
                 </Link>
               </li>
               <li>
                 <Link href="#faq" className="hover:text-amber-400 transition-colors">
-                  Pertanyaan Umum
+                  {t.footer.navFaq}
                 </Link>
               </li>
             </ul>
@@ -117,40 +120,40 @@ export default function Footer() {
           {/* Menu Unggulan */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              Menu Pilihan
+              {t.footer.featuredTitle}
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
-              <li>Keju Classic (Rp 37.000)</li>
-              <li>Keju Double (Rp 49.500)</li>
-              <li>Keju Extra (Rp 45.000)</li>
-              <li>Pandan Classic (Rp 37.000)</li>
-              <li>Pandan Double (Rp 49.500)</li>
-              <li>Cokelat Classic (Rp 40.000)</li>
-              <li>Red Velvet Classic (Rp 42.000)</li>
-              <li>Dessert Cube Matcha (Rp 29.000)</li>
-              <li>Dessert Cube Strawberry (Rp 29.000)</li>
+              <li>{language === "id" ? "Keju Classic (Rp 37.000)" : "Classic Cheese (Rp 37,000)"}</li>
+              <li>{language === "id" ? "Keju Double (Rp 49.500)" : "Double Cheese (Rp 49,500)"}</li>
+              <li>{language === "id" ? "Keju Extra (Rp 45.000)" : "Extra Cheese (Rp 45,000)"}</li>
+              <li>{language === "id" ? "Pandan Classic (Rp 37.000)" : "Classic Pandan (Rp 37,000)"}</li>
+              <li>{language === "id" ? "Pandan Double (Rp 49.500)" : "Double Pandan (Rp 49,500)"}</li>
+              <li>{language === "id" ? "Cokelat Classic (Rp 40.000)" : "Classic Chocolate (Rp 40,000)"}</li>
+              <li>{language === "id" ? "Red Velvet Classic (Rp 42.000)" : "Classic Red Velvet (Rp 42,000)"}</li>
+              <li>{language === "id" ? "Dessert Cube Matcha (Rp 29.000)" : "Matcha Dessert Cube (Rp 29,000)"}</li>
+              <li>{language === "id" ? "Dessert Cube Strawberry (Rp 29.000)" : "Strawberry Dessert Cube (Rp 29,000)"}</li>
             </ul>
           </div>
 
           {/* Jam & Alamat Outlet */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              Dapur & Outlet Soreang
+              {t.footer.outletTitle}
             </h4>
             <div className="space-y-2.5 text-xs text-gray-300">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <span>
-                  Jl. Raya Soreang - Banjaran No. 88, Soreang, Kabupaten Bandung, Jawa Barat 40911
+                  {t.footer.address}
                 </span>
               </div>
               <div className="flex items-start gap-2">
                 <Clock className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>Setiap Hari: 07.00 - 21.00 WIB</span>
+                <span>{t.footer.hours}</span>
               </div>
               <div className="flex items-start gap-2">
                 <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>0812-3456-7890 (Layanan WhatsApp)</span>
+                <span>{t.footer.whatsappService}</span>
               </div>
             </div>
           </div>
@@ -158,11 +161,11 @@ export default function Footer() {
 
         {/* Bottom Copyright & Credit Buatan Gerobaklink */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-          <p>© {new Date().getFullYear()} BOKIS - Bolu Kiju Soreang. Hak Cipta Dilindungi.</p>
+          <p>© {new Date().getFullYear()} BOKIS - Bolu Kiju Soreang. {t.footer.copyright}</p>
           
           {/* Credit Gerobaklink */}
           <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-xl text-gray-300 hover:border-amber-400/40 transition-colors">
-            <span>Website ini buatan</span>
+            <span>{t.footer.creditText}</span>
             <a
               href="https://www.gerobaklink.my.id"
               target="_blank"
