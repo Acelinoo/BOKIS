@@ -46,6 +46,7 @@ export default function ProductCatalog({
     { id: "top-picks", label: t.treats.tabs.topPicks },
     { id: "bolu-kiju", label: t.treats.tabs.boluKiju },
     { id: "dessert-cube", label: t.treats.tabs.dessertCube },
+    { id: "minuman", label: t.treats.tabs.minuman },
   ];
 
   const filteredItems = PRODUCTS.filter((item) => {

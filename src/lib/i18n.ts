@@ -48,6 +48,7 @@ export interface I18nContent {
       boluKiju: string;
       dessertCube: string;
       chiramisu: string;
+      minuman: string;
     };
     showMore: string;
     quickView: string;
@@ -192,6 +193,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
         boluKiju: "Bolu Kiju Soreang",
         dessertCube: "Dessert Cube",
         chiramisu: "Aneka Chiramisu",
+        minuman: "Minuman & Kopi",
       },
       showMore: "Lihat Semua Menu",
       quickView: "Lihat Detail",
@@ -334,6 +336,7 @@ export const DICTIONARY: Record<Language, I18nContent> = {
         boluKiju: "Cheese Chiffon",
         dessertCube: "Dessert Cube",
         chiramisu: "Chiramisu",
+        minuman: "Drinks & Coffee",
       },
       showMore: "View All Menus",
       quickView: "Details",
