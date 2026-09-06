@@ -34,15 +34,16 @@ export default function Footer() {
           
           {/* Brand Info */}
           <div className="lg:col-span-4 space-y-4">
-            {/* Logo Resmi Bokis */}
-            <div className="bg-[#FAF5EB] px-3 py-2 rounded-2xl inline-block shadow-sm">
-              <div className="relative h-12 w-36">
+            {/* Logo Resmi Bokis - Presisi & Elegan */}
+            <div className="inline-flex items-center justify-center bg-[#FAF5EB] px-4 py-2 rounded-2xl shadow-xs border border-[#F1E5D1]">
+              <div className="relative h-11 w-28 sm:w-32">
                 <Image
                   src="/images/brand/logo-bokis.png"
                   alt="BOKIS - Bolu Kiju Soreang"
                   fill
-                  sizes="144px"
-                  className="object-contain"
+                  sizes="128px"
+                  className="object-contain object-center"
+                  priority
                 />
               </div>
             </div>

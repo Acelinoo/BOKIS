@@ -61,7 +61,7 @@ export default function ContactSection() {
     <section
       id="kontak"
       ref={sectionRef}
-      className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="scroll-mt-24 sm:scroll-mt-28 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
     >
       {/* 2 Kolom Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">

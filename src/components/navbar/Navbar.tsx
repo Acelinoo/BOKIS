@@ -15,18 +15,19 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#FAF5EB]/95 backdrop-blur-md border-b border-[#F1E5D1] ${
         isScrolled
-          ? "bg-[#FAF5EB]/95 backdrop-blur-md shadow-xs py-2.5 border-b border-[#F1E5D1]"
-          : "bg-transparent py-4 sm:py-5"
+          ? "shadow-sm py-2 sm:py-2.5"
+          : "shadow-2xs py-3 sm:py-3.5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,13 +35,13 @@ export default function Navbar() {
           
           {/* Logo Brand Resmi Bokis - Bolu Kiju Soreang */}
           <Link href="/" className="flex items-center group">
-            <div className="relative h-12 sm:h-14 w-32 sm:w-36 group-hover:scale-105 transition-transform duration-200">
+            <div className="relative h-11 sm:h-12 w-28 sm:w-32 group-hover:scale-105 transition-transform duration-200">
               <Image
                 src="/images/brand/logo-bokis.png"
                 alt="BOKIS - Bolu Kiju Soreang"
                 fill
                 priority
-                sizes="144px"
+                sizes="(max-width: 640px) 112px, 128px"
                 className="object-contain object-left"
               />
             </div>

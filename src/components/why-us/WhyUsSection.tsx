@@ -66,7 +66,7 @@ export default function WhyUsSection() {
     <section
       id="why-us"
       ref={sectionRef}
-      className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="scroll-mt-24 sm:scroll-mt-28 py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
     >
       {/* Container Besar Kuning Amber */}
       <div className="relative rounded-[2.25rem] sm:rounded-[3rem] bg-[#F7A633] pt-12 pb-8 px-6 sm:px-10 md:px-14 shadow-lg overflow-hidden">

@@ -97,7 +97,7 @@ export default function FAQSection() {
     <section
       id="faq"
       ref={sectionRef}
-      className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
+      className="scroll-mt-24 sm:scroll-mt-28 py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
     >
       {/* Title: PERTANYAAN UMUM */}
       <div className="faq-title text-center mb-10">
