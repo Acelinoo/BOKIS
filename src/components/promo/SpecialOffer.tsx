@@ -127,6 +127,7 @@ export default function SpecialOffer() {
                   src="/images/products/bolu-pandan-double.jpg"
                   alt="Pandan Double"
                   fill
+                  loading="lazy"
                   sizes="(max-width: 768px) 50vw, 250px"
                   className="object-contain rounded-xl"
                 />
@@ -184,6 +185,7 @@ export default function SpecialOffer() {
                   src="/images/products/dessert-cube-strawberry.jpg"
                   alt="Dessert Cube Strawberry"
                   fill
+                  loading="lazy"
                   sizes="(max-width: 768px) 50vw, 250px"
                   className="object-contain rounded-xl"
                 />

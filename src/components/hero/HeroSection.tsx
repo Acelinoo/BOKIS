@@ -89,18 +89,18 @@ export default function HeroSection() {
       {/* --- 2. CENTER AREA: TEKS RAKSASA DI BELAKANG & KUE STATIS DI DEPAN --- */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full my-auto py-2 sm:py-4">
         
-        {/* TEKS RAKSASA PUTIH DI LAYER BELAKANG (z-10) */}
-        <h2 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-heading font-black text-white uppercase tracking-[0.06em] sm:tracking-[0.20em] md:tracking-[0.22em] text-[15vw] sm:text-[140px] md:text-[190px] lg:text-[240px] leading-none select-none drop-shadow-xs z-10 pointer-events-none transition-all duration-500">
+        {/* TEKS UTAMA DI ATAS KUE (z-30): TIDAK TERHALANG DI SEMUA SLIDE & RESPONSIF MOBILE */}
+        <h2 className="text-center font-heading font-black text-white uppercase tracking-[0.06em] sm:tracking-[0.12em] md:tracking-[0.16em] text-[13vw] sm:text-[85px] md:text-[120px] lg:text-[150px] xl:text-[170px] leading-none select-none drop-shadow-md z-30 pointer-events-none transition-all duration-500 mb-2 sm:mb-3 md:mb-4">
           {current.word}
         </h2>
 
-        {/* OBJEK KUE DI LAYER DEPAN (z-20): BERDIRI TEGAK GROUNDED TANPA ANIMASI TERBANG */}
+        {/* OBJEK KUE DI LAYER (z-20): BERDIRI TEGAK GROUNDED TANPA MENGHALANGI TEKS */}
         <div className="relative z-20 flex flex-col items-center justify-center">
           
           {/* Gambar Kue Menapak Anggun */}
           <div
             onClick={handleOrder}
-            className="relative w-56 h-56 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[440px] lg:h-[440px] max-h-[46vh] cursor-pointer hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
+            className="relative w-52 h-52 sm:w-72 sm:h-72 md:w-88 md:h-88 lg:w-[400px] lg:h-[400px] max-h-[44vh] cursor-pointer hover:scale-[1.02] transition-transform duration-300 flex items-center justify-center"
             title={language === "id" ? "Klik untuk menambah ke keranjang!" : "Click to add to cart!"}
           >
             {current.id === "cheese" ? (
@@ -109,17 +109,17 @@ export default function HeroSection() {
                 alt="Bolu Keju Classic Ultra HD Bokis Soreang"
                 fill
                 priority
-                sizes="(max-width: 640px) 240px, (max-width: 768px) 100vw, 440px"
+                sizes="(max-width: 640px) 220px, (max-width: 768px) 100vw, 400px"
                 className="object-contain drop-shadow-xl select-none"
               />
             ) : (
-              <div className="relative w-52 h-52 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/50 shadow-2xl">
+              <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-76 md:h-76 rounded-full overflow-hidden border-4 border-white/50 shadow-2xl">
                 <Image
                   src={current.image}
                   alt={current.word}
                   fill
                   priority
-                  sizes="(max-width: 640px) 220px, (max-width: 768px) 100vw, 360px"
+                  sizes="(max-width: 640px) 200px, (max-width: 768px) 100vw, 320px"
                   className="object-cover select-none"
                 />
               </div>
@@ -127,17 +127,17 @@ export default function HeroSection() {
           </div>
 
           {/* Bayangan Jatuh Kontak Realistis Tepat di Bawah Piring (Menempel Alami) */}
-          <div className="w-48 sm:w-72 md:w-88 h-3.5 sm:h-5 -mt-2 sm:-mt-3 rounded-[50%] bg-black/20 blur-xs pointer-events-none" />
+          <div className="w-44 sm:w-64 md:w-80 h-3.5 sm:h-5 -mt-2 sm:-mt-3 rounded-[50%] bg-black/20 blur-xs pointer-events-none" />
         </div>
 
         {/* Tombol Lihat Menu Khusus Mobile: Bersih, Rapi, Berdiri Bebas di Bawah Kue */}
-        <div className="mt-5 sm:hidden flex justify-center w-full z-25">
+        <div className="mt-4 sm:hidden flex justify-center w-full z-25">
           <button
             onClick={() => {
               const target = document.getElementById("katalog");
               if (target) target.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-3 rounded-full bg-[#18120E] text-white hover:bg-black font-heading font-black text-xs tracking-wider shadow-xl active:scale-95 transition-all duration-200 cursor-pointer inline-flex items-center gap-2"
+            className="px-8 py-2.5 rounded-full bg-[#18120E] text-white hover:bg-black font-heading font-black text-xs tracking-wider shadow-xl active:scale-95 transition-all duration-200 cursor-pointer inline-flex items-center gap-2"
           >
             <span>{t.hero.viewMenu}</span>
           </button>

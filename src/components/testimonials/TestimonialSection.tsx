@@ -6,6 +6,7 @@ import { Star, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
+import { GOOGLE_REVIEW_URL } from "@/lib/constants";
 
 interface TestimonialItem {
   id: number;
@@ -63,9 +64,6 @@ const TESTIMONIAL_ITEMS: TestimonialItem[] = [
       "The Pandan Cheese has a refreshing natural pandan aroma. Nicely packaged and ideal for gifts and family gatherings.",
   },
 ];
-
-const GOOGLE_REVIEW_URL =
-  "https://www.google.com/search?hl=id-ID&gl=id&q=Bokis+Soreang&ludocid=9520101706232646466#lrd=0x2e68ed2eb16bc0a9:0x841e320fe9964b42,3";
 
 export default function TestimonialSection() {
   const { language, t } = useLanguage();

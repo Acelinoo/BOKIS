@@ -102,6 +102,7 @@ export default function CartDrawer() {
                   src="/images/brand/logo-bokis.png"
                   alt="BOKIS Logo"
                   fill
+                  loading="lazy"
                   sizes="96px"
                   className="object-contain object-left"
                 />
@@ -170,6 +171,7 @@ export default function CartDrawer() {
                           src={item.product.imageUrl}
                           alt={item.product.name}
                           fill
+                          loading="lazy"
                           sizes="56px"
                           className="object-contain"
                         />

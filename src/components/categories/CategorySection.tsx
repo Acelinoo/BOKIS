@@ -112,6 +112,7 @@ export default function CategorySection({
                     src={cat.image}
                     alt={categoryTitle}
                     fill
+                    loading="lazy"
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-contain drop-shadow-xl"
                   />

@@ -127,6 +127,7 @@ export default function WhyUsSection() {
                 src="/images/brand/baker-why-us.jpg"
                 alt="Bokis Master Baker"
                 fill
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, 420px"
                 className="object-cover rounded-3xl shadow-xl group-hover:scale-[1.02] transition-transform duration-500"
               />

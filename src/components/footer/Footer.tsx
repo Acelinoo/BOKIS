@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Clock, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { GOOGLE_REVIEW_URL, GOOGLE_MAPS_URL } from "@/lib/constants";
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -43,7 +44,7 @@ export default function Footer() {
                   fill
                   sizes="128px"
                   className="object-contain object-center"
-                  priority
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -114,7 +115,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://www.google.com/search?hl=id-ID&gl=id&q=Bokis+Soreang&ludocid=9520101706232646466#lrd=0x2e68ed2eb16bc0a9:0x841e320fe9964b42,3"
+                    href={GOOGLE_REVIEW_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-amber-300 hover:text-amber-200 transition-colors inline-flex items-center gap-1 font-medium"
@@ -149,7 +150,7 @@ export default function Footer() {
             </h4>
             <div className="space-y-2 text-xs text-gray-300">
               <a
-                href="https://www.google.com/maps/place/Bokis+Soreang/@-7.0202874,107.5397411,12z/data=!4m12!1m2!2m1!1sbokis!3m8!1s0x2e68ed2eb16bc0a9:0x841e320fe9964b42!8m2!3d-7.020309!4d107.539479!9m1!1b1!15sCgVib2tpc1oHIgVib2tpc5IBCWNha2Vfc2hvcJoBJENoZERTVWhOTUc5blMwVkpRMEZuVFVOQk1rMTFUMTlSUlJBQuABAPoBBAgAEEM!16s%2Fg%2F11rwjm2dlr?entry=ttu"
+                href={GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 hover:text-amber-300 transition-colors group"

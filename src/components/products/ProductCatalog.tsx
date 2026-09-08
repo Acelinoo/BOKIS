@@ -199,6 +199,7 @@ export default function ProductCatalog({
                     src={item.imageUrl}
                     alt={item.name}
                     fill
+                    loading="lazy"
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover"
                   />

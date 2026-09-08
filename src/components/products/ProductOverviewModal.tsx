@@ -102,6 +102,7 @@ export default function ProductOverviewModal({
                     src={product.image}
                     alt={product.name}
                     fill
+                    loading="lazy"
                     className="object-cover"
                   />
                 </div>
