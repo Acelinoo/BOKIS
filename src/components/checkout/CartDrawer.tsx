@@ -5,11 +5,13 @@ import Image from "next/image";
 import { X, Trash2, Plus, Minus, ShoppingBag, Send, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { useBranch } from "@/context/BranchContext";
 import confetti from "canvas-confetti";
 
 export default function CartDrawer() {
   const { items, isOpen, setIsOpen, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
   const { t, language } = useLanguage();
+  const { branch } = useBranch();
   
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -17,6 +19,13 @@ export default function CartDrawer() {
   const [address, setAddress] = useState("");
   const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Sinkronkan default kecamatan jika cabang berganti
+  React.useEffect(() => {
+    if (branch.popularDistricts.length > 0) {
+      setKecamatan(branch.popularDistricts[0]);
+    }
+  }, [branch]);
 
   if (!isOpen) return null;
 
@@ -35,7 +44,7 @@ export default function CartDrawer() {
           customerName: name,
           customerPhone: phone,
           deliveryAddress: address,
-          notes: `Kecamatan: ${kecamatan}. Catatan: ${notes || "-"}`,
+          notes: `Cabang: ${branch.name}. Kecamatan: ${kecamatan}. Catatan: ${notes || "-"}`,
           items: items.map((i) => ({
             productId: i.product.id,
             quantity: i.quantity,
@@ -58,7 +67,7 @@ export default function CartDrawer() {
       // ignore
     }
 
-    // Format Pesan WhatsApp Terstruktur Formal Ala Toko Kue Profesional
+    // Format Pesan WhatsApp Terstruktur Sesuai Cabang Aktif
     const itemDetails = items
       .map((item, index) =>
         language === "id"
@@ -69,10 +78,38 @@ export default function CartDrawer() {
 
     const message =
       language === "id"
-        ? `Halo Admin Bokis (Bolu Kiju Soreang)! 👋%0A%0ASaya ingin memesan bolu fresh oven dengan rincian berikut:%0A%0A*--- RINCIAN PESANAN ---*%0A${itemDetails}%0A%0A*--- TOTAL ESTIMASI ---*%0A*Total Produk: Rp ${totalPrice.toLocaleString("id-ID")}*%0A*(Belum termasuk ongkir kurir instant/sameday)*%0A%0A*--- DATA PENERIMA ---*%0A• *Nama:* ${encodeURIComponent(name)}%0A• *No. WhatsApp:* ${encodeURIComponent(phone)}%0A• *Wilayah:* ${encodeURIComponent(kecamatan)} (Kab. Bandung)%0A• *Alamat Lengkap:* ${encodeURIComponent(address)}%0A• *Catatan Tambahan:* ${encodeURIComponent(notes || "-")}%0A%0AMohon konfirmasi ketersediaan stok fresh dan estimasi waktu pengirimannya ya Admin, hatur nuhun! 🙏`
-        : `Hello Admin Bokis (Bolu Kiju Soreang)! 👋%0A%0AI would like to place an order with the following details:%0A%0A*--- ORDER DETAILS ---*%0A${itemDetails}%0A%0A*--- TOTAL ESTIMATE ---*%0A*Total Products: Rp ${totalPrice.toLocaleString("id-ID")}*%0A*(Excludes instant/sameday courier delivery fee)*%0A%0A*--- RECIPIENT INFORMATION ---*%0A• *Name:* ${encodeURIComponent(name)}%0A• *WhatsApp:* ${encodeURIComponent(phone)}%0A• *District:* ${encodeURIComponent(kecamatan)} (Bandung Regency)%0A• *Delivery Address:* ${encodeURIComponent(address)}%0A• *Notes:* ${encodeURIComponent(notes || "-")}%0A%0APlease confirm fresh stock availability and delivery schedule. Thank you! 🙏`;
+        ? `Halo Admin ${branch.name}! 👋%0A%0ASaya ingin memesan bolu fresh oven melalui website dengan rincian berikut:%0A%0A*Cabang Tujuan:* ${encodeURIComponent(
+            branch.name
+          )}%0A%0A*--- RINCIAN PESANAN ---*%0A${itemDetails}%0A%0A*--- TOTAL ESTIMASI ---*%0A*Total Produk: Rp ${totalPrice.toLocaleString(
+            "id-ID"
+          )}*%0A*(Belum termasuk ongkir kurir instant/sameday)*%0A%0A*--- DATA PENERIMA ---*%0A• *Nama:* ${encodeURIComponent(
+            name
+          )}%0A• *No. WhatsApp:* ${encodeURIComponent(phone)}%0A• *Wilayah/Kecamatan:* ${encodeURIComponent(
+            kecamatan
+          )} (${encodeURIComponent(branch.city)})%0A• *Alamat Lengkap:* ${encodeURIComponent(
+            address
+          )}%0A• *Catatan Tambahan:* ${encodeURIComponent(
+            notes || "-"
+          )}%0A%0AMohon konfirmasi ketersediaan stok fresh dan estimasi waktu pengirimannya dari ${encodeURIComponent(
+            branch.name
+          )} ya Admin, terima kasih! 🙏`
+        : `Hello Admin ${branch.name}! 👋%0A%0AI would like to place an order via website with the following details:%0A%0A*Branch:* ${encodeURIComponent(
+            branch.name
+          )}%0A%0A*--- ORDER DETAILS ---*%0A${itemDetails}%0A%0A*--- TOTAL ESTIMATE ---*%0A*Total Products: Rp ${totalPrice.toLocaleString(
+            "id-ID"
+          )}*%0A*(Excludes courier delivery fee)*%0A%0A*--- RECIPIENT INFORMATION ---*%0A• *Name:* ${encodeURIComponent(
+            name
+          )}%0A• *WhatsApp:* ${encodeURIComponent(phone)}%0A• *District:* ${encodeURIComponent(
+            kecamatan
+          )} (${encodeURIComponent(branch.city)})%0A• *Delivery Address:* ${encodeURIComponent(
+            address
+          )}%0A• *Notes:* ${encodeURIComponent(
+            notes || "-"
+          )}%0A%0APlease confirm fresh stock availability and delivery schedule from ${encodeURIComponent(
+            branch.name
+          )}. Thank you! 🙏`;
 
-    const waAdmin = process.env.NEXT_PUBLIC_WA_ADMIN || "6281234567890";
+    const waAdmin = branch.whatsappAdmin;
     const waUrl = `https://wa.me/${waAdmin}?text=${message}`;
 
     setTimeout(() => {
@@ -111,8 +148,8 @@ export default function CartDrawer() {
                 <h3 className="font-heading font-black text-xs uppercase tracking-tight text-[#291E16]">
                   {t.cart.title}
                 </h3>
-                <p className="text-[10px] text-[#786C65]">
-                  {t.cart.subtitle}
+                <p className="text-[10px] text-[#F58A42] font-semibold">
+                  {branch.name} • {branch.city}
                 </p>
               </div>
             </div>
@@ -257,16 +294,14 @@ export default function CartDrawer() {
                       onChange={(e) => setKecamatan(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-[#F3E8D8] text-xs font-medium text-[#231815] focus:outline-none focus:border-[#F58A42]"
                     >
-                      <option value="Soreang">Soreang (Kab. Bandung)</option>
-                      <option value="Kutawaringin">Kutawaringin</option>
-                      <option value="Katapang">Katapang</option>
-                      <option value="Banjaran">Banjaran</option>
-                      <option value="Baleendah">Baleendah</option>
-                      <option value="Dayeuhkolot">Dayeuhkolot</option>
-                      <option value="Margahayu">Margahayu</option>
-                      <option value="Ciwidey / Pasirjambu">Ciwidey / Pasirjambu</option>
-                      <option value="Kota Bandung">Kota Bandung</option>
-                      <option value="Cimahi">Kota Cimahi</option>
+                      {branch.popularDistricts.map((d) => (
+                        <option key={d} value={d}>
+                          {d} ({branch.city})
+                        </option>
+                      ))}
+                      <option value="Wilayah Lainnya (Bandung Raya)">
+                        Wilayah Lainnya (Bandung Raya)
+                      </option>
                     </select>
                   </div>
 
@@ -343,7 +378,9 @@ export default function CartDrawer() {
               </button>
 
               <p className="text-[10px] text-center text-[#786C65]">
-                {t.cart.footerNote}
+                {language === "id"
+                  ? `Pesanan Anda akan diproses langsung oleh staf dapur ${branch.name}.`
+                  : `Your order will be processed directly by ${branch.name} kitchen staff.`}
               </p>
             </div>
           )}

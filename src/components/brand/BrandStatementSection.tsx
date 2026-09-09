@@ -14,19 +14,23 @@ export default function BrandStatementSection() {
     () => {
       if (!textRef.current) return;
 
-      gsap.fromTo(
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          once: true,
+        },
+      });
+
+      tl.fromTo(
         textRef.current,
-        { opacity: 0, y: 30 },
-        {
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 85%",
-          },
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-        }
+        { opacity: 0, y: 35 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+      ).fromTo(
+        ".brand-tag-badge",
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.5)" },
+        "-=0.4"
       );
     },
     { scope: sectionRef }
@@ -42,7 +46,7 @@ export default function BrandStatementSection() {
         className="font-heading font-black text-xl sm:text-2xl md:text-3xl lg:text-[36px] uppercase tracking-normal text-[#291E16] leading-relaxed sm:leading-snug"
       >
         {t.hero.brandStatement.pre}{" "}
-        <span className="inline-block align-baseline mx-1 px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl bg-[#F58A42] text-white shadow-xs font-black text-lg sm:text-xl md:text-2xl lg:text-[30px]">
+        <span className="brand-tag-badge inline-block align-baseline mx-1 px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl bg-[#F58A42] text-white shadow-xs font-black text-lg sm:text-xl md:text-2xl lg:text-[30px]">
           {t.hero.brandStatement.tag}
         </span>
         {t.hero.brandStatement.mid}{" "}

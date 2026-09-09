@@ -2,13 +2,15 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useBranch } from "@/context/BranchContext";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
 
 export default function ContactSection() {
   const { t } = useLanguage();
+  const { branch } = useBranch();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -19,45 +21,61 @@ export default function ContactSection() {
 
   useGSAP(
     () => {
-      gsap.from(".contact-left", {
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 85%",
+          start: "top 80%",
           once: true,
         },
-        opacity: 0,
-        y: 25,
-        duration: 0.6,
-        clearProps: "all",
-        ease: "power2.out",
       });
 
-      gsap.from(".contact-right", {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 85%",
-          once: true,
-        },
+      tl.from(".contact-heading-line", {
         opacity: 0,
-        y: 25,
-        duration: 0.6,
-        clearProps: "all",
-        ease: "power2.out",
-      });
+        y: 30,
+        stagger: 0.12,
+        duration: 0.7,
+        ease: "power3.out",
+      })
+        .from(
+          ".contact-image",
+          {
+            opacity: 0,
+            scale: 0.94,
+            duration: 0.7,
+            ease: "power2.out",
+          },
+          "-=0.4"
+        )
+        .from(
+          ".contact-right",
+          {
+            opacity: 0,
+            y: 35,
+            duration: 0.75,
+            ease: "back.out(1.2)",
+          },
+          "-=0.5"
+        );
     },
     { scope: sectionRef }
   );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Halo Admin Bokis Soreang!%0A%0A*Nama:* ${encodeURIComponent(
-      name
-    )}%0A*No. WA:* ${encodeURIComponent(phone)}%0A*Email:* ${encodeURIComponent(
-      email
-    )}%0A*Pesan:* ${encodeURIComponent(message)}`;
+    const text = `Halo Admin ${branch.name}! 👋%0A%0ASaya ingin melakukan reservasi / pemesanan via website.%0A%0A*Cabang Tujuan:* ${encodeURIComponent(
+      branch.name
+    )}%0A*Nama:* ${encodeURIComponent(name)}%0A*No. WA:* ${encodeURIComponent(
+      phone
+    )}%0A*Email:* ${encodeURIComponent(
+      email || "-"
+    )}%0A*Pesan / Detail Kebutuhan:* ${encodeURIComponent(message)}%0A%0AMohon konfirmasinya ya Admin, terima kasih! 🙏`;
 
-    window.open(`https://wa.me/6281234567890?text=${text}`, "_blank");
+    window.open(`https://wa.me/${branch.whatsappAdmin}?text=${text}`, "_blank");
     setSent(true);
+    setName("");
+    setPhone("");
+    setEmail("");
+    setMessage("");
     setTimeout(() => setSent(false), 2500);
   };
 
@@ -70,16 +88,37 @@ export default function ContactSection() {
       {/* 2 Kolom Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
-        {/* Kolom Kiri: PESAN SEGAR + Bread Basket Photo */}
-        <div className="contact-left lg:col-span-6 space-y-6">
+        {/* Kolom Kiri: PESAN SEGAR + Info Outlet + Bread Basket Photo */}
+        <div className="contact-left lg:col-span-6 space-y-5">
           <h2 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl uppercase tracking-normal leading-[1.08] text-[#291E16]">
-            {t.contact.headingLine1} <br />
-            {t.contact.headingLine2} <br />
-            {t.contact.headingLine3}
+            <span className="contact-heading-line block">{t.contact.headingLine1}</span>
+            <span className="contact-heading-line block">{t.contact.headingLine2}</span>
+            <span className="contact-heading-line block">{t.contact.headingLine3}</span>
           </h2>
 
+          {/* Bar Info Cabang & Tombol Lihat Lokasi */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-[#F1E5D1] shadow-2xs">
+            <div className="flex items-start gap-2.5">
+              <MapPin className="w-4 h-4 text-[#F58A42] shrink-0 mt-0.5" />
+              <div className="text-left">
+                <div className="font-heading font-black text-xs sm:text-sm text-[#291E16]">{branch.name}</div>
+                <div className="text-[11px] text-[#786C65] line-clamp-1">{branch.address}</div>
+              </div>
+            </div>
+            <a
+              href={branch.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#291E16] text-white hover:bg-[#F58A42] text-xs font-heading font-black transition-colors shrink-0 shadow-xs cursor-pointer group"
+              title={`Buka Google Maps ${branch.name}`}
+            >
+              <span>Lihat Lokasi</span>
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
+
           {/* Foto Keranjang Roti & Bolu Artisan */}
-          <div className="relative w-full h-72 sm:h-96 rounded-3xl overflow-hidden shadow-md group">
+          <div className="contact-image relative w-full h-72 sm:h-96 rounded-3xl overflow-hidden shadow-md group">
             <Image
               src="/images/brand/bread-basket-contact.jpg"
               alt="Artisan Bakery Basket Bokis"
@@ -93,9 +132,14 @@ export default function ContactSection() {
 
         {/* Kolom Kanan: Card Oranye Formulir Pemesanan */}
         <div className="contact-right lg:col-span-6 bg-[#F58A42] rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-10 shadow-lg text-[#291E16]">
-          <h3 className="font-heading font-black text-2xl sm:text-3xl uppercase tracking-normal text-[#291E16] mb-6">
-            {t.contact.title}
-          </h3>
+          <div className="mb-6">
+            <span className="inline-block px-3 py-1 rounded-full bg-[#291E16] text-white text-[10px] font-heading font-black uppercase tracking-wider mb-2">
+              {branch.badge}
+            </span>
+            <h3 className="font-heading font-black text-2xl sm:text-3xl uppercase tracking-normal text-[#291E16]">
+              {t.contact.title}
+            </h3>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Input Name */}

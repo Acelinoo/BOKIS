@@ -63,33 +63,45 @@ export default function ProductCatalog({
   // ScrollTrigger Initial Entrance
   useGSAP(
     () => {
-      gsap.from(".catalog-header", {
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 85%",
+          once: true,
         },
-        opacity: 0,
-        y: 25,
-        duration: 0.6,
-        ease: "power2.out",
       });
+
+      tl.from(".catalog-header", {
+        opacity: 0,
+        y: 30,
+        duration: 0.7,
+        ease: "power3.out",
+      }).from(
+        ".category-filter-btn",
+        {
+          opacity: 0,
+          y: 15,
+          stagger: 0.06,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.3"
+      );
     },
     { scope: sectionRef }
   );
 
   // Stagger animation when changing category tab or initial render
-  useEffect(() => {
-    if (gridRef.current) {
-      const cards = gridRef.current.querySelectorAll(".product-card");
-      if (cards.length > 0) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 20, scale: 0.96 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.05, ease: "power2.out" }
-        );
-      }
-    }
-  }, [activeTab]);
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ".product-card",
+        { opacity: 0, y: 20, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.05, ease: "power2.out" }
+      );
+    },
+    { scope: gridRef, dependencies: [activeTab] }
+  );
 
   const handleOpenOverview = (rawItem: ProductItem) => {
     const item = getLocalizedProduct(rawItem, language);
@@ -107,26 +119,26 @@ export default function ProductCatalog({
     });
   };
 
-  const handleAddToCart = (e: React.MouseEvent, item: ProductItem) => {
+  const handleAddToCart = (e: React.MouseEvent, rawItem: ProductItem) => {
     e.stopPropagation();
-    addToCart(item, 1);
-    setAddedId(item.id);
-    setTimeout(() => setAddedId(null), 1200);
+    addToCart(rawItem, 1);
+    setAddedId(rawItem.id);
+    setTimeout(() => setAddedId(null), 1500);
   };
 
   return (
     <section
       id="katalog"
       ref={sectionRef}
-      className="scroll-mt-24 sm:scroll-mt-28 py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden w-full"
+      className="scroll-mt-24 sm:scroll-mt-28 py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
     >
-      {/* Title & Filter Tabs */}
-      <div className="catalog-header text-center mb-8">
+      {/* Header Section dengan Pill Switcher Kategori */}
+      <div className="catalog-header text-center max-w-3xl mx-auto">
         <h2 className="font-heading font-black text-3xl sm:text-5xl uppercase tracking-normal text-[#291E16]">
           {t.treats.title}
         </h2>
 
-        {/* Filter Tabs */}
+        {/* Pill Kategori: Responsif Wrapping & Rapi */}
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -134,7 +146,7 @@ export default function ProductCatalog({
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
-                className={`px-3.5 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-heading font-bold transition-all duration-200 cursor-pointer ${
+                className={`category-filter-btn px-3.5 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-heading font-bold transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-[#F7A633] text-[#291E16] shadow-sm scale-105"
                     : "bg-[#EDE1CD] text-[#786C65] hover:bg-[#E3D4BC] hover:text-[#291E16]"

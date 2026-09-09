@@ -19,32 +19,35 @@ export default function SpecialOffer() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 85%",
+          once: true,
         },
         opacity: 0,
-        y: 25,
-        duration: 0.6,
-        ease: "power2.out",
+        y: 28,
+        duration: 0.7,
+        ease: "power3.out",
       });
 
       gsap.from(".promo-card", {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
+          once: true,
         },
         opacity: 0,
         y: 35,
         scale: 0.94,
         stagger: 0.15,
-        duration: 0.7,
-        ease: "back.out(1.4)",
+        duration: 0.75,
+        ease: "back.out(1.3)",
       });
 
-      // Pulse badge
+      // Pulse badge diskon
       gsap.to(".discount-badge", {
-        scale: 1.08,
-        duration: 1.3,
+        scale: 1.09,
+        duration: 1.2,
         repeat: -1,
         yoyo: true,
+        transformOrigin: "center center",
         ease: "sine.inOut",
       });
     },

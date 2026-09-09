@@ -4,9 +4,9 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import { Star, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useBranch } from "@/context/BranchContext";
 import { gsap } from "@/lib/gsap";
 import { useGSAP } from "@gsap/react";
-import { GOOGLE_REVIEW_URL } from "@/lib/constants";
 
 interface TestimonialItem {
   id: number;
@@ -67,6 +67,7 @@ const TESTIMONIAL_ITEMS: TestimonialItem[] = [
 
 export default function TestimonialSection() {
   const { language, t } = useLanguage();
+  const { branch } = useBranch();
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -75,20 +76,22 @@ export default function TestimonialSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 85%",
+          once: true,
         },
         opacity: 0,
-        y: 25,
-        duration: 0.6,
-        ease: "power2.out",
+        y: 28,
+        duration: 0.7,
+        ease: "power3.out",
       });
 
       gsap.from(".testimonial-card", {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
+          once: true,
         },
         opacity: 0,
-        y: 35,
+        y: 32,
         scale: 0.95,
         stagger: 0.1,
         duration: 0.65,
@@ -110,11 +113,12 @@ export default function TestimonialSection() {
           {t.testimonials.title}
         </h2>
 
-        {/* Tombol Berikan Ulasan Google Review */}
+        {/* Tombol Berikan Ulasan Google Review Dinamis per Cabang */}
         <a
-          href={GOOGLE_REVIEW_URL}
+          href={branch.googleReviewUrl}
           target="_blank"
           rel="noopener noreferrer"
+          title={`Beri ulasan Google untuk ${branch.name}`}
           className="inline-flex items-center gap-2 pl-3.5 sm:pl-4 pr-1.5 sm:pr-2 py-1.5 sm:py-2 rounded-xl bg-[#291E16] text-white hover:bg-[#F58A42] text-xs sm:text-sm font-heading font-black transition-all duration-200 shadow-xs hover:shadow-md active:scale-95 group cursor-pointer"
         >
           <div className="flex items-center gap-1.5">
@@ -184,9 +188,10 @@ export default function TestimonialSection() {
         </div>
 
         <a
-          href={GOOGLE_REVIEW_URL}
+          href={branch.googleReviewUrl}
           target="_blank"
           rel="noopener noreferrer"
+          title={`Beri ulasan Google untuk ${branch.name}`}
           className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#F58A42] hover:bg-[#291E16] text-white font-heading font-black text-xs uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md active:scale-95 inline-flex items-center justify-center gap-2 shrink-0 cursor-pointer"
         >
           <span>{t.testimonials.giveReview}</span>

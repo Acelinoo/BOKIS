@@ -63,18 +63,30 @@ export default function FAQSection() {
 
   useGSAP(
     () => {
-      gsap.from(".faq-title", {
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 90%",
+          start: "top 85%",
           once: true,
         },
-        opacity: 0,
-        y: 20,
-        duration: 0.5,
-        clearProps: "all",
-        ease: "power2.out",
       });
+
+      tl.from(".faq-title", {
+        opacity: 0,
+        y: 25,
+        duration: 0.6,
+        ease: "power3.out",
+      }).from(
+        ".faq-item",
+        {
+          opacity: 0,
+          y: 20,
+          stagger: 0.08,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "-=0.3"
+      );
     },
     { scope: sectionRef }
   );

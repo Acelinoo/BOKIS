@@ -6,6 +6,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { PRODUCTS } from "@/lib/products";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 interface VariantSlide {
   id: string;
@@ -57,8 +59,8 @@ const VARIANTS: VariantSlide[] = [
 ];
 
 export default function HeroSection() {
-  const { addToCart, totalItems, setIsOpen } = useCart();
-  const { language, setLanguage, t } = useLanguage();
+  const { addToCart } = useCart();
+  const { language, t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -77,6 +79,54 @@ export default function HeroSection() {
     setCurrentIndex((prev) => (prev === VARIANTS.length - 1 ? 0 : prev + 1));
   };
 
+  // 1. Animasi transisi teks & kue saat berpindah slide varian
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ".hero-title",
+        { opacity: 0, y: 26, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }
+      );
+
+      gsap.fromTo(
+        ".hero-cake-container",
+        { opacity: 0, scale: 0.88, y: 18 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.65, ease: "back.out(1.2)" }
+      );
+
+      gsap.fromTo(
+        ".hero-subtitle",
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }
+      );
+    },
+    { scope: containerRef, dependencies: [currentIndex] }
+  );
+
+  // 2. Animasi ambient floating parutan keju & entrance tombol
+  useGSAP(
+    () => {
+      gsap.to(".hero-cheese-accent", {
+        y: -10,
+        rotation: 52,
+        duration: 2.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      gsap.from(".hero-controls-enter", {
+        opacity: 0,
+        y: 20,
+        stagger: 0.1,
+        duration: 0.7,
+        delay: 0.15,
+        ease: "power3.out",
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
     <section
       id="hero"
@@ -86,16 +136,16 @@ export default function HeroSection() {
       {/* Ambient Radial Highlight di Fullscreen */}
       <div className="absolute top-0 right-0 sm:right-1/4 w-72 sm:w-[600px] h-72 sm:h-[600px] rounded-full bg-white/15 blur-2xl sm:blur-3xl pointer-events-none" />
 
-      {/* --- 2. CENTER AREA: TEKS RAKSASA DI BELAKANG & KUE STATIS DI DEPAN --- */}
+      {/* --- 2. CENTER AREA: TEKS UTAMA DI ATAS KUE (z-30) & OBJEK KUE DI BAWAHNYA (z-20) --- */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full my-auto py-2 sm:py-4">
         
         {/* TEKS UTAMA DI ATAS KUE (z-30): TIDAK TERHALANG DI SEMUA SLIDE & RESPONSIF MOBILE */}
-        <h2 className="text-center font-heading font-black text-white uppercase tracking-[0.06em] sm:tracking-[0.12em] md:tracking-[0.16em] text-[13vw] sm:text-[85px] md:text-[120px] lg:text-[150px] xl:text-[170px] leading-none select-none drop-shadow-md z-30 pointer-events-none transition-all duration-500 mb-2 sm:mb-3 md:mb-4">
+        <h2 className="hero-title text-center font-heading font-black text-white uppercase tracking-[0.06em] sm:tracking-[0.12em] md:tracking-[0.16em] text-[13vw] sm:text-[85px] md:text-[120px] lg:text-[150px] xl:text-[170px] leading-none select-none drop-shadow-md z-30 pointer-events-none transition-all duration-500 mb-2 sm:mb-3 md:mb-4">
           {current.word}
         </h2>
 
         {/* OBJEK KUE DI LAYER (z-20): BERDIRI TEGAK GROUNDED TANPA MENGHALANGI TEKS */}
-        <div className="relative z-20 flex flex-col items-center justify-center">
+        <div className="hero-cake-container relative z-20 flex flex-col items-center justify-center">
           
           {/* Gambar Kue Menapak Anggun */}
           <div
@@ -131,7 +181,7 @@ export default function HeroSection() {
         </div>
 
         {/* Tombol Lihat Menu Khusus Mobile: Bersih, Rapi, Berdiri Bebas di Bawah Kue */}
-        <div className="mt-4 sm:hidden flex justify-center w-full z-25">
+        <div className="hero-controls-enter mt-4 sm:hidden flex justify-center w-full z-25">
           <button
             onClick={() => {
               const target = document.getElementById("katalog");
@@ -145,7 +195,7 @@ export default function HeroSection() {
 
         {/* Aksen Mikro Parutan Keju di Samping Kue (Persis Lemon Curl di Referensi) */}
         <div className="absolute right-[8%] sm:right-[18%] md:right-[22%] bottom-[18%] z-25 hidden sm:block pointer-events-none">
-          <span className="text-2xl sm:text-3xl transform rotate-45 inline-block opacity-90 drop-shadow-xs">
+          <span className="hero-cheese-accent text-2xl sm:text-3xl transform rotate-45 inline-block opacity-90 drop-shadow-xs">
             🧀
           </span>
         </div>
@@ -155,14 +205,14 @@ export default function HeroSection() {
       <footer className="relative z-30 w-full flex items-center sm:items-end justify-between gap-3 pt-3 sm:pt-4">
         
         {/* Sisi Kiri Bawah: Teks 2 Baris Minimalis */}
-        <div className="max-w-[70%] sm:max-w-xs md:max-w-sm text-left">
+        <div className="hero-subtitle max-w-[70%] sm:max-w-xs md:max-w-sm text-left">
           <p className="text-[11px] sm:text-xs md:text-[13px] text-[#291E16]/90 font-heading font-semibold leading-relaxed tracking-normal">
             {language === "id" ? current.subTitleId : current.subTitleEn}
           </p>
         </div>
 
         {/* Tengah Bawah: Tombol Kapsul Hitam Pekat "Lihat Menu" (Khusus Desktop agar persis Behance) */}
-        <div className="hidden sm:block absolute left-1/2 -translate-x-1/2 bottom-8 sm:bottom-10">
+        <div className="hero-controls-enter hidden sm:block absolute left-1/2 -translate-x-1/2 bottom-8 sm:bottom-10">
           <button
             onClick={() => {
               const target = document.getElementById("katalog");
@@ -175,7 +225,7 @@ export default function HeroSection() {
         </div>
 
         {/* Sisi Kanan Bawah: 2 Tombol Panah Lingkaran Outline */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <div className="hero-controls-enter flex items-center gap-1.5 sm:gap-2 shrink-0">
           <button
             onClick={handlePrev}
             className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/80 hover:border-white hover:bg-white/20 flex items-center justify-center text-white transition-all cursor-pointer shadow-2xs"

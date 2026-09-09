@@ -17,11 +17,12 @@ export default function WhyUsSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 85%",
+          once: true,
         },
         opacity: 0,
-        y: 25,
-        duration: 0.6,
-        ease: "power2.out",
+        y: 30,
+        duration: 0.7,
+        ease: "power3.out",
       });
 
       gsap.from(".why-us-left-card", {

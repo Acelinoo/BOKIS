@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { CartProvider } from "@/context/CartContext";
+import { BranchProvider } from "@/context/BranchContext";
+import BranchSelectorModal from "@/components/branch/BranchSelectorModal";
 import Navbar from "@/components/navbar/Navbar";
 import HeroSection from "@/components/hero/HeroSection";
 import BrandStatementSection from "@/components/brand/BrandStatementSection";
@@ -21,51 +23,56 @@ export default function HomePage() {
 
   return (
     <LanguageProvider>
-      <CartProvider>
-        <div className="min-h-screen flex flex-col bg-[#FAF5EB] text-[#291E16] overflow-x-hidden w-full max-w-full">
-          {/* Navigasi Utama dengan Logo PNG & Switcher ID/EN */}
-          <Navbar />
+      <BranchProvider>
+        <CartProvider>
+          <div className="min-h-screen flex flex-col bg-[#FAF5EB] text-[#291E16] overflow-x-hidden w-full max-w-full">
+            {/* Modal Pemilihan Cabang Terpusat BOKIS */}
+            <BranchSelectorModal />
 
-          {/* Main Content Sections */}
-          <main className="flex-1 w-full max-w-full overflow-x-hidden">
-            {/* 1. Hero Section dengan Seamless Crossfade Slider (Tanpa Jeda) */}
-            <HeroSection />
+            {/* Navigasi Utama dengan Logo PNG, Indikator Cabang & Switcher ID/EN */}
+            <Navbar />
 
-            {/* 2. Brand Statement Section (Diperbesar, diletakkan tepat di bawah Hero) */}
-            <BrandStatementSection />
+            {/* Main Content Sections */}
+            <main className="flex-1 w-full max-w-full overflow-x-hidden">
+              {/* 1. Hero Section dengan Seamless Crossfade Slider (Tanpa Jeda) */}
+              <HeroSection />
 
-            {/* 3. Why Us dengan Icon Gandum Murni (Wheat) tanpa Sparkles */}
-            <WhyUsSection />
+              {/* 2. Brand Statement Section (Diperbesar, diletakkan tepat di bawah Hero) */}
+              <BrandStatementSection />
 
-            {/* 4. Most Loved Treats dengan Filter Kategori & Modal Overview Lengkap */}
-            <ProductCatalog
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-            />
+              {/* 3. Why Us dengan Icon Gandum Murni (Wheat) tanpa Sparkles */}
+              <WhyUsSection />
 
-            {/* 5. Special Offer dengan 2 Split Cards 25% Off (Gambar 2) */}
-            <SpecialOffer />
+              {/* 4. Most Loved Treats dengan Filter Kategori & Modal Overview Lengkap */}
+              <ProductCatalog
+                selectedCategory={selectedCategory}
+                onCategoryChange={setSelectedCategory}
+              />
 
-            {/* 6. Loved by Our Customers (Gambar 2) */}
-            <TestimonialSection />
+              {/* 5. Special Offer dengan 2 Split Cards 25% Off (Gambar 2) */}
+              <SpecialOffer />
 
-            {/* 7. Our Sweet Creations dengan Functional 5 Slider Dots (Gambar 3) */}
-            <CreationsGallery />
+              {/* 6. Loved by Our Customers (Gambar 2) */}
+              <TestimonialSection />
 
-            {/* 8. Frequently Asked Question (Gambar 3) */}
-            <FAQSection />
+              {/* 7. Our Sweet Creations dengan Functional 5 Slider Dots (Gambar 3) */}
+              <CreationsGallery />
 
-            {/* 9. Let's Make Something Sweet Together / Contact Us (Gambar 3) */}
-            <ContactSection />
-          </main>
+              {/* 8. Frequently Asked Question (Gambar 3) */}
+              <FAQSection />
 
-          {/* Footer */}
-          <Footer />
+              {/* 9. Let's Make Something Sweet Together / Contact Us (Gambar 3) */}
+              <ContactSection />
+            </main>
 
-          {/* Slide-over Drawer Keranjang & Checkout WhatsApp */}
-          <CartDrawer />
-        </div>
-      </CartProvider>
+            {/* Footer */}
+            <Footer />
+
+            {/* Slide-over Drawer Keranjang & Checkout WhatsApp */}
+            <CartDrawer />
+          </div>
+        </CartProvider>
+      </BranchProvider>
     </LanguageProvider>
   );
 }

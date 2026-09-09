@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Clock, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { GOOGLE_REVIEW_URL, GOOGLE_MAPS_URL } from "@/lib/constants";
+import { useBranch } from "@/context/BranchContext";
+import { gsap } from "@/lib/gsap";
+import { useGSAP } from "@gsap/react";
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -27,14 +29,49 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
 
 export default function Footer() {
   const { t, language } = useLanguage();
+  const { branch } = useBranch();
+  const footerRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 90%",
+          once: true,
+        },
+      });
+
+      tl.from(".footer-col", {
+        opacity: 0,
+        y: 30,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: "power3.out",
+      }).from(
+        ".footer-bottom",
+        {
+          opacity: 0,
+          y: 15,
+          duration: 0.6,
+          ease: "power2.out",
+        },
+        "-=0.3"
+      );
+    },
+    { scope: footerRef }
+  );
 
   return (
-    <footer className="bg-[#231815] text-[#FFFDF7] pt-10 sm:pt-16 pb-8 sm:pb-12 border-t border-amber-900/30 overflow-hidden w-full max-w-full">
+    <footer
+      ref={footerRef}
+      className="bg-[#231815] text-[#FFFDF7] pt-10 sm:pt-16 pb-8 sm:pb-12 border-t border-amber-900/30 overflow-hidden w-full max-w-full"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 pb-8 sm:pb-12 border-b border-white/10">
           
           {/* 1. Brand Info */}
-          <div className="lg:col-span-4 space-y-3 sm:space-y-4">
+          <div className="footer-col lg:col-span-4 space-y-3 sm:space-y-4">
             {/* Logo Resmi Bokis - Presisi & Elegan */}
             <div className="inline-flex items-center justify-center bg-[#FAF5EB] px-3.5 py-1.5 rounded-2xl shadow-xs border border-[#F1E5D1]">
               <div className="relative h-10 sm:h-11 w-28 sm:w-32">
@@ -64,11 +101,12 @@ export default function Footer() {
                 <InstagramIcon className="w-4 h-4" />
               </a>
               <a
-                href="https://wa.me/6281234567890"
+                href={`https://wa.me/${branch.whatsappAdmin}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 hover:bg-[#22C55E] flex items-center justify-center text-white transition-colors"
-                aria-label="WhatsApp Admin Bokis"
+                aria-label={`WhatsApp Admin ${branch.name}`}
+                title={`Chat WhatsApp ${branch.name}`}
               >
                 <Phone className="w-4 h-4" />
               </a>
@@ -76,7 +114,7 @@ export default function Footer() {
           </div>
 
           {/* 2 & 3. Navigasi Cepat & Menu Pilihan (Dibuat 2 Kolom Berdampingan di Mobile agar Rapi & Kompak) */}
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:col-span-5 pt-1 sm:pt-0">
+          <div className="footer-col grid grid-cols-2 gap-4 sm:gap-6 lg:col-span-5 pt-1 sm:pt-0">
             {/* Quick Links */}
             <div className="space-y-2 sm:space-y-3">
               <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
@@ -115,10 +153,11 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href={GOOGLE_REVIEW_URL}
+                    href={branch.googleReviewUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-amber-300 hover:text-amber-200 transition-colors inline-flex items-center gap-1 font-medium"
+                    title={`Beri ulasan Google untuk ${branch.name}`}
                   >
                     <span>{t.testimonials.giveReview}</span>
                     <ArrowUpRight className="w-3 h-3" />
@@ -143,38 +182,61 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* 4. Jam & Alamat Outlet Soreang */}
-          <div className="lg:col-span-3 space-y-2 sm:space-y-3 pt-2 lg:pt-0">
+          {/* 4. Jam & Alamat Outlet Dinamis */}
+          <div className="footer-col lg:col-span-3 space-y-2 sm:space-y-3 pt-2 lg:pt-0">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-300">
-              {t.footer.outletTitle}
+              {branch.name}
             </h4>
-            <div className="space-y-2 text-xs text-gray-300">
+            <div className="space-y-2.5 text-xs text-gray-300">
               <a
-                href={GOOGLE_MAPS_URL}
+                href={branch.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 hover:text-amber-300 transition-colors group"
-                title="Buka lokasi Bokis Soreang di Google Maps"
+                title={`Buka lokasi ${branch.name} di Google Maps`}
               >
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <span className="leading-snug">
-                  {t.footer.address}
+                  {branch.address}
                 </span>
               </a>
+
+              {/* Tombol Lihat Lokasi Google Maps Dinamis */}
+              <div>
+                <a
+                  href={branch.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-amber-400 text-amber-300 hover:text-[#231815] font-heading font-black text-xs transition-colors group cursor-pointer"
+                  title={`Lihat lokasi ${branch.name} di Google Maps`}
+                >
+                  <MapPin className="w-3.5 h-3.5 text-amber-400 group-hover:text-[#231815]" />
+                  <span>Lihat Lokasi</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              </div>
+
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>{t.footer.hours}</span>
+                <span>{language === "id" ? branch.operatingHoursId : branch.operatingHoursEn}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>{t.footer.whatsappService}</span>
+                <a
+                  href={`https://wa.me/${branch.whatsappAdmin}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-amber-300 transition-colors"
+                >
+                  {branch.whatsappDisplay} (Layanan WhatsApp)
+                </a>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Copyright & Credit Buatan Gerobaklink */}
-        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs text-gray-400 text-center sm:text-left">
+        <div className="footer-bottom pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-xs text-gray-400 text-center sm:text-left">
           <p>© {new Date().getFullYear()} BOKIS - Bolu Kiju Soreang. {t.footer.copyright}</p>
           
           {/* Credit Gerobaklink */}
